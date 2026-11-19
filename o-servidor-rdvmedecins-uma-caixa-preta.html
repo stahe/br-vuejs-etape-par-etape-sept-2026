@@ -1,0 +1,1931 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introdução passo a passo ao framework web [Vue.js]">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/br-vuejs-etape-par-etape-sept-2026/o-servidor-rdvmedecins-uma-caixa-preta.html">
+      
+      
+        <link rel="prev" href="internacionalizacao.html">
+      
+      
+        <link rel="next" href="comunicacao-com-o-servidor.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>7. O servidor RdvMedecins, uma caixa-preta - Introdução passo a passo ao framework web [Vue.js]</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introdução passo a passo ao framework web [Vue.js]";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7-o-servidor-rdvmedecins-uma-caixa-preta" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introdução passo a passo ao framework web [Vue.js]" class="md-header__button md-logo" aria-label="Introdução passo a passo ao framework web [Vue.js]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introdução passo a passo ao framework web [Vue.js]
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              7. O servidor RdvMedecins, uma caixa-preta
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Alternar para o modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Alternar para o modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Alternar para o modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Alternar para o modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/br-vuejs-etape-par-etape-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introdução passo a passo ao framework web [Vue.js]" class="md-nav__button md-logo" aria-label="Introdução passo a passo ao framework web [Vue.js]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introdução passo a passo ao framework web [Vue.js]
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/br-vuejs-etape-par-etape-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bem-vindo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="introducao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introdução
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="primeiros-passos-com-o-vuejs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Primeiros passos com o Vue.js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="os-componentes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Os componentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roteamento.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Roteamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="estado-compartilhado.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Estado compartilhado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internacionalizacao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Internacionalização
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. O servidor RdvMedecins, uma caixa-preta
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="o-servidor-rdvmedecins-uma-caixa-preta.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. O servidor RdvMedecins, uma caixa-preta
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#71-a-aplicacao-rdvmedecins" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1. A aplicação RdvMedecins
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72-instalacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2. Instalação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-formato-das-respostas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3. Formato das respostas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-autenticacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4. Autenticação
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#75-a-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5. A API
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#76-consultando-a-api-com-curl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6. Consultando a API com curl
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7.6. Consultando a API com curl">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#761-login" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.1. Login
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#762-medicos-clientes-calendario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.2. Médicos, clientes, calendário
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#763-consultas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.3. Consultas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#764-a-perspectiva-de-um-paciente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.4. A perspectiva de um paciente
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#765-a-perspectiva-de-um-medico" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.5. A perspectiva de um médico
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#766-gerenciamento-de-medicos-e-clientes-admin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.6. Gerenciamento de médicos e clientes (ADMIN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#767-criacao-de-uma-conta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.7. Criação de uma conta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#768-gerenciar-sua-conta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.8. Gerenciar sua conta
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#769-alguns-erros" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6.9. Alguns erros
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comunicacao-com-o-servidor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Comunicação com o servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusao-intermediaria.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Conclusão intermediária
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="estudo-de-caso-o-cliente-vuejs-da-aplicacao-rdvmedecins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Estudo de caso: o cliente Vue.js da aplicação RdvMedecins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="implantacao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Implantação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Conclusão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apendices.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Apêndices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="7-o-servidor-rdvmedecins-uma-caixa-preta">7. <span style="color: #2e74b5">O servidor RdvMedecins, uma caixa-preta</span></h1>
+<p>Os exemplos 17 a 20, seguidos do estudo de caso, interagem com um servidor: o servidor JSON da aplicação <em>[RdvMedecins]</em>. Este é o servidor <em>[NestJS]</em> do curso anterior, cujos controllers deixam de gerar páginas HTML e passam a produzir respostas JSON. Suas camadas de negócio e de acesso a dados permanecem inalteradas.</p>
+<p>Neste curso, esse servidor é uma <strong>caixa-preta</strong>: não precisamos saber como ele é escrito. Importa apenas sua <strong>API</strong> — isto é, a lista de requisições HTTP que ele aceita e as respostas que retorna. Essa é a situação típica de quem desenvolve um cliente: a API é um contrato, e a equipe do servidor pode mudar o que quiser por trás desse contrato. O código-fonte dele é fornecido (pasta <strong><em>[rdvmedecins-nestjs-json]</em></strong>) e amplamente comentado, para o leitor curioso.</p>
+<p>Este capítulo explica como instalar o servidor, descreve sua API e o consulta usando o <em>[curl]</em>.</p>
+<h2 id="71-a-aplicacao-rdvmedecins">7.1. <span style="color: #2e74b5">A aplicação RdvMedecins</span></h2>
+<p>A aplicação gerencia as consultas de um consultório médico. Ela tem três papéis:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Papel</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Quem</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>O que pode fazer</b></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ADMIN]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">O administrador (<i><b>[admin]</b></i>)</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Agendar e cancelar consultas de todos os pacientes; gerenciar médicos e clientes</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[DOCTOR]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Os médicos (<i><b>[pelissier]</b></i>, <i><b>[tatou]</b></i>, <i><b>[dupont]</b></i>)</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Agendar e cancelar consultas de todos os pacientes; ver todos os nomes nas agendas</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[USER]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Os pacientes (<i><b>[martin]</b></i>, <i><b>[durand]</b></i>, <i><b>[bistrou]</b></i>, <i><b>[german]</b></i>)</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">agendar consultas para si mesmos; cancelar suas consultas; gerenciar suas contas. Em uma agenda, não podem ver os nomes dos outros pacientes</div></td></tr></table>
+
+<p>As contas de demonstração usam o login como senha. As regras de gestão são verificadas pelo servidor, independentemente do cliente:</p>
+<ul>
+<li>nenhuma consulta no passado;</li>
+<li>apenas uma consulta futura por paciente;</li>
+<li>um horário só pode ser reservado uma vez por dia;</li>
+<li>dois médicos (ou dois clientes) não podem ter o mesmo nome e sobrenome; um login pertence a uma única conta;</li>
+<li>um médico com consultas não pode ser excluído;</li>
+<li>um registro que tenha sido modificado nesse meio tempo por outra pessoa não pode ser sobrescrito (bloqueio otimista);</li>
+<li>um paciente nunca recebe o nome de outro paciente.</li>
+</ul>
+<h2 id="72-instalacao">7.2. <span style="color: #2e74b5">Instalação</span></h2>
+<p>Você precisará do <em>[Node.js]</em> e de um servidor <em>[MySQL]</em> (ou <em>[MariaDB]</em>): sua instalação é descrita no apêndice.</p>
+<p><strong>1. O banco de dados.</strong> O script <strong><em>[database/dbrdvmedecins2.sql]</em></strong> cria o banco de dados <strong><em>[dbrdvmedecins2]</em></strong>, suas tabelas e seus dados de exemplo. Usando o <em>[Laragon]</em>, execute-o a partir do <em>[HeidiSQL]</em> (menu Arquivo / Executar um arquivo SQL); na linha de comando:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>mysql -u root -p &lt; database/dbrdvmedecins2.sql
+</code></pre></div>
+<p>O script sempre parte de um banco de dados vazio: você pode executá-lo novamente para restaurar os dados originais.</p>
+<p><strong>2. Bibliotecas.</strong> Em um console aberto na pasta <strong><em>[rdvmedecins-nestjs-json]</em></strong>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>npm install
+</code></pre></div>
+<p><strong>3. Configuração.</strong> Copie o arquivo <strong><em>[.env.example]</em></strong> para <strong><em>[.env]</em></strong> (no <em>[Windows]</em>: <strong><em>[copy .env.example .env]</em></strong>), depois modifique-o:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span>
+<span class="normal"><a href="#__codelineno-2-30">30</a></span>
+<span class="normal"><a href="#__codelineno-2-31">31</a></span>
+<span class="normal"><a href="#__codelineno-2-32">32</a></span>
+<span class="normal"><a href="#__codelineno-2-33">33</a></span>
+<span class="normal"><a href="#__codelineno-2-34">34</a></span>
+<span class="normal"><a href="#__codelineno-2-35">35</a></span>
+<span class="normal"><a href="#__codelineno-2-36">36</a></span>
+<span class="normal"><a href="#__codelineno-2-37">37</a></span>
+<span class="normal"><a href="#__codelineno-2-38">38</a></span>
+<span class="normal"><a href="#__codelineno-2-39">39</a></span>
+<span class="normal"><a href="#__codelineno-2-40">40</a></span>
+<span class="normal"><a href="#__codelineno-2-41">41</a></span>
+<span class="normal"><a href="#__codelineno-2-42">42</a></span>
+<span class="normal"><a href="#__codelineno-2-43">43</a></span>
+<span class="normal"><a href="#__codelineno-2-44">44</a></span>
+<span class="normal"><a href="#__codelineno-2-45">45</a></span>
+<span class="normal"><a href="#__codelineno-2-46">46</a></span>
+<span class="normal"><a href="#__codelineno-2-47">47</a></span>
+<span class="normal"><a href="#__codelineno-2-48">48</a></span>
+<span class="normal"><a href="#__codelineno-2-49">49</a></span>
+<span class="normal"><a href="#__codelineno-2-50">50</a></span>
+<span class="normal"><a href="#__codelineno-2-51">51</a></span>
+<span class="normal"><a href="#__codelineno-2-52">52</a></span>
+<span class="normal"><a href="#__codelineno-2-53">53</a></span>
+<span class="normal"><a href="#__codelineno-2-54">54</a></span>
+<span class="normal"><a href="#__codelineno-2-55">55</a></span>
+<span class="normal"><a href="#__codelineno-2-56">56</a></span>
+<span class="normal"><a href="#__codelineno-2-57">57</a></span>
+<span class="normal"><a href="#__codelineno-2-58">58</a></span>
+<span class="normal"><a href="#__codelineno-2-59">59</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1"># -----------------------------------------------------------------------</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="c1"># Arquivo de configuração de exemplo.</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="c1"># Copie este arquivo para [.env] e depois adapte os valores à sua máquina.</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1"># O arquivo [.env] nunca deve ser compartilhado nem versionado (senhas).</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1"># -----------------------------------------------------------------------</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1"># porta de escuta do servidor JSON (o cliente Vue.js o acessa por meio do proxy do Vite)</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="na">PORT</span><span class="o">=</span><span class="s">8080</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="c1"># parâmetros de conexão com o banco de dados MySQL [dbrdvmedecins2]</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="c1"># (script: database/dbrdvmedecins2.sql)</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="na">DB_HOST</span><span class="o">=</span><span class="s">localhost</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="na">DB_PORT</span><span class="o">=</span><span class="s">3306</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="na">DB_USERNAME</span><span class="o">=</span><span class="s">root</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="na">DB_PASSWORD</span><span class="o">=</span>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="na">DB_DATABASE</span><span class="o">=</span><span class="s">dbrdvmedecins2</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="c1"># true: exibe no console as consultas SQL enviadas ao MySQL</span>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="na">DB_LOGGING</span><span class="o">=</span><span class="s">false</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="c1"># -----------------------------------------------------------------------</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="c1"># autenticação</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="c1"># -----------------------------------------------------------------------</span>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="c1"># chave secreta usada para assinar/verificar tokens JWT - DEVE ser alterada</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="c1"># em produção (uma string aleatória longa, nunca versionada).</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="na">JWT_SECRET</span><span class="o">=</span><span class="s">change-me-to-a-long-random-string</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="c1"># validade de um token JWT, em segundos (7200 s = 2 h). O cookie</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="c1"># que carrega o token tem a mesma duração.</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="na">JWT_EXPIRES_IN_SECONDS</span><span class="o">=</span><span class="s">7200</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="c1"># defina como true em produção (site servido por HTTPS): o cookie de</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="c1"># autenticação nunca será então enviado por uma conexão não criptografada.</span>
+<a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="na">COOKIE_SECURE</span><span class="o">=</span><span class="s">false</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32"></a>
+<a id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="c1"># -----------------------------------------------------------------------</span>
+<a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="c1"># proteção contra bots</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35"></a><span class="c1"># -----------------------------------------------------------------------</span>
+<a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="c1"># login: número de falhas (captcha ou senha errados) permitidas para</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="c1"># o mesmo login a partir do mesmo endereço IP, antes de bloquear esse par...</span>
+<a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="na">LOGIN_MAX_FAILURES</span><span class="o">=</span><span class="s">5</span>
+<a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="c1"># ... por esta duração (um endereço IP também é bloqueado se acumular</span>
+<a id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="c1"># 5 vezes mais falhas, todos os logins somados)</span>
+<a id="__codelineno-2-41" name="__codelineno-2-41"></a><span class="na">LOGIN_BLOCK_MINUTES</span><span class="o">=</span><span class="s">15</span>
+<a id="__codelineno-2-42" name="__codelineno-2-42"></a><span class="c1"># criação de conta de paciente: número máximo de contas criadas por hora</span>
+<a id="__codelineno-2-43" name="__codelineno-2-43"></a><span class="c1"># a partir do mesmo endereço IP. Em uma sala de aula, todos os computadores costumam sair</span>
+<a id="__codelineno-2-44" name="__codelineno-2-44"></a><span class="c1"># pelo mesmo endereço: aumente se necessário.</span>
+<a id="__codelineno-2-45" name="__codelineno-2-45"></a><span class="na">REGISTRATION_MAX_PER_HOUR</span><span class="o">=</span><span class="s">10</span>
+<a id="__codelineno-2-46" name="__codelineno-2-46"></a>
+<a id="__codelineno-2-47" name="__codelineno-2-47"></a><span class="c1"># MODO DE TESTE do captcha: se esta variável tiver um valor, esse valor é</span>
+<a id="__codelineno-2-48" name="__codelineno-2-48"></a><span class="c1"># aceito como resposta a QUALQUER captcha. Útil para consultar</span>
+<a id="__codelineno-2-49" name="__codelineno-2-49"></a><span class="c1"># a API com curl (não é possível "ler" a imagem em um console).</span>
+<a id="__codelineno-2-50" name="__codelineno-2-50"></a><span class="c1"># Deixe VAZIA em produção.</span>
+<a id="__codelineno-2-51" name="__codelineno-2-51"></a><span class="na">CAPTCHA_TEST</span><span class="o">=</span>
+<a id="__codelineno-2-52" name="__codelineno-2-52"></a>
+<a id="__codelineno-2-53" name="__codelineno-2-53"></a><span class="c1"># -----------------------------------------------------------------------</span>
+<a id="__codelineno-2-54" name="__codelineno-2-54"></a><span class="c1"># produção</span>
+<a id="__codelineno-2-55" name="__codelineno-2-55"></a><span class="c1"># -----------------------------------------------------------------------</span>
+<a id="__codelineno-2-56" name="__codelineno-2-56"></a><span class="c1"># pasta do cliente Vue.js compilado, servida por este servidor (padrão: client/)</span>
+<a id="__codelineno-2-57" name="__codelineno-2-57"></a><span class="c1"># CLIENT_DIR=client</span>
+<a id="__codelineno-2-58" name="__codelineno-2-58"></a><span class="c1"># defina como true se o servidor estiver atrás de um proxy (nginx...)</span>
+<a id="__codelineno-2-59" name="__codelineno-2-59"></a><span class="na">TRUST_PROXY</span><span class="o">=</span><span class="s">false</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>linha 8: o servidor escuta na porta 8080;</li>
+<li>Linhas 12–16: a conexão com o <em>[MySQL]</em>. Com o <em>[Laragon]</em>, o usuário <strong><em>[root]</em></strong> não tem senha: os valores padrão servem;</li>
+<li>linha 25: a chave secreta que assina os tokens de autenticação;</li>
+<li>linhas 38–45: proteções antibot (bloqueio após várias tentativas de login malsucedidas, número de contas criadas por hora);</li>
+<li>linha 51: o <strong>modo de teste do CAPTCHA</strong>. A página de login exige que o usuário digite novamente os caracteres de uma imagem, o que é impossível a partir de um console. Se esta variável tiver um valor, esse valor é aceito como resposta a qualquer CAPTCHA, de modo semelhante às “chaves de teste” que o <em>[Google]</em> oferece para seu <em>[reCAPTCHA]</em>. Para os testes com o <em>[curl]</em> deste capítulo, informe <strong><em>[CAPTCHA_TEST=test]</em></strong>. Deixe-a VAZIA em produção;</li>
+<li>linhas 57–59: duas configurações para produção (veja o capítulo “Implantação”).</li>
+</ul>
+<p><strong>4. Inicialização.</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>npm run start:dev
+</code></pre></div>
+<p>O console exibe (trecho):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a>[Nest] LOG [NestFactory] Starting Nest application...
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a>[Nest] WARN [RdvMedecins] captcha TEST MODE active (CAPTCHA_TEST in .env): never use it in production
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a>[Nest] LOG [RoutesResolver] ScheduleController {/api/schedule}:
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a>[Nest] LOG [RouterExplorer] Mapped {/api/schedule, GET} route
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a>[Nest] LOG [RoutesResolver] AppointmentsController {/api/appointments}:
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a>...
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a>[Nest] LOG [NestApplication] Nest application successfully started
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a>[Nest] LOG [RdvMedecins] JSON server started: http://localhost:8080/api
+</code></pre></div></td></tr></table></div>
+<p>Se o banco de dados estiver inacessível (servidor <em>[MySQL]</em> parado, senha incorreta), o servidor é encerrado imediatamente com uma mensagem de erro de conexão.</p>
+<h2 id="73-formato-das-respostas">7.3. <span style="color: #2e74b5">Formato das respostas</span></h2>
+<p>Todas as URLs começam por <strong><em>[/api]</em></strong>. Uma requisição bem-sucedida recebe um código de status 2xx e, em seu corpo, os dados solicitados no formato JSON. Uma requisição rejeitada recebe um código de status 4xx ou 5xx e, no corpo, dados no mesmo formato:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="p">{</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span><span class="nt">"statusCode"</span><span class="p">:</span><span class="w"> </span><span class="mi">400</span><span class="p">,</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">  </span><span class="nt">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERRORS.INVALID_FORM"</span><span class="p">,</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">  </span><span class="nt">"params"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"min"</span><span class="p">:</span><span class="w"> </span><span class="s2">"6"</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">  </span><span class="nt">"fields"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERRORS.LASTNAME_REQUIRED"</span><span class="p">,</span><span class="w"> </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ERRORS.PASSWORD_TOO_SHORT"</span><span class="w"> </span><span class="p">}</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><strong><em>[statusCode]</em></strong>: o código HTTP, repetido no corpo;</li>
+<li><strong><em>[key]</em></strong>: a <strong>chave de tradução</strong> da mensagem. O servidor nunca retorna texto a ser exibido: ele não conhece mais o idioma do usuário. É o cliente que traduz a chave usando seus dicionários (veja o Exemplo 16);</li>
+<li><strong><em>[params]</em></strong> (opcional): os parâmetros da mensagem (<strong><em>[At least {min} characters.], [Try again in {minutes} minute(s).]</em></strong>);</li>
+<li><strong><em>[fields]</em></strong> (opcional): para um formulário rejeitado, o erro de cada campo.</li>
+</ul>
+<p>Códigos utilizados:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Código</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Significado</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Exemplos de chaves</b></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">400</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Requisição inválida</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ERRORS.INVALID_FORM] </b></i>(+ fields), <i><b>[ERRORS.INVALID_DATE]</b></i>, <i><b>[ERRORS.WRONG_CAPTCHA]</b></i>, <i><b>[ERRORS.CHOOSE_PATIENT]</b></i>, <i><b>[ERRORS.WRONG_CURRENT_PASSWORD]</b></i>, <i><b>[ERRORS.BAD_REQUEST]</b></i>...</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">401</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">não autenticado</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ERRORS.AUTH_REQUIRED] </b></i>(sem token), <i><b>[ERRORS.SESSION_EXPIRED] </b></i>(token inválido ou expirado), <i><b>[LOGIN.ERROR]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">403</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Acesso negado</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ERRORS.FORBIDDEN] </b></i>(papel insuficiente), <i><b>[ERRORS.CAPTCHA_BEFORE_ACCOUNT] </b></i>(sem passe)</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">404</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Não encontrado</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ERRORS.NOT_FOUND]</b></i>, <i><b>[ERRORS.DOCTOR_NOT_FOUND]</b></i>, <i><b>[ERRORS.APPOINTMENT_NOT_FOUND]</b></i>...</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">409</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Violação de regra de negócio</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ERRORS.PAST_DATE]</b></i>, <i><b>[ERRORS.SLOT_ALREADY_BOOKED]</b></i>, <i><b>[ERRORS.LOGIN_TAKEN]</b></i>, <i><b>[ERRORS.CONCURRENT_UPDATE]</b></i>...</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">415</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">POST que não está em JSON</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ERRORS.JSON_REQUIRED]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">429</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Tentativas demais</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ERRORS.TOO_MANY_ATTEMPTS]</b></i>, <i><b>[ERRORS.TOO_MANY_ACCOUNTS] </b></i>(+ params.minutes)</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">500</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">erro do servidor</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[ERRORS.SERVER_ERROR]</b></i></div></td></tr></table>
+
+<h2 id="74-autenticacao">7.4. <span style="color: #2e74b5">Autenticação</span></h2>
+<p>O cliente se autentica por meio de <strong><em>[POST /api/auth/login]</em></strong>, com um nome de usuário, uma senha e uma resposta ao CAPTCHA. Em troca, o servidor coloca no navegador um <strong>cookie</strong> que contém um token JWT assinado:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a>Set-Cookie: rdvmedecins_jwt=eyJhbGciOiJIUzI1NiIs...; Max-Age=7200; Path=/api; HttpOnly; SameSite=Strict
+</code></pre></div></td></tr></table></div>
+<p>Seus atributos são importantes para a segurança:</p>
+<ul>
+<li><strong><em>[HttpOnly]</em></strong>: o código <em>[JavaScript]</em> da página não consegue ler esse cookie. Um script malicioso injetado na página seria, portanto, incapaz de roubar o token. Consequência para o cliente: ele não consegue determinar por conta própria se está logado. Ele pergunta ao servidor (<strong><em>[GET /api/auth/me]</em></strong>);</li>
+<li><strong><em>[Path=/api]</em></strong>: o navegador só o inclui nas requisições à API;</li>
+<li><strong><em>[SameSite=Strict]</em></strong>: o navegador só inclui esse token nas requisições enviadas A PARTIR de uma página deste site. Uma página maliciosa em outro site não consegue fazer o navegador agir em nome do usuário (um chamado ataque CSRF);</li>
+<li><strong><em>[Max-Age=7200]</em></strong>: ele expira após duas horas, ao mesmo tempo que o token.</li>
+</ul>
+<p>O navegador envia então automaticamente esse cookie a cada requisição a <strong><em>[/api]</em></strong>. O cliente <em>[Vue.js]</em> não tem, portanto, nada a fazer para se autenticar, desde que suas páginas e a API compartilhem a <strong>mesma origem</strong> (mesmo protocolo, mesma máquina, mesma porta). Esse é o papel do proxy do <em>[Vite]</em> durante o desenvolvimento (veja o Exemplo 17) e do próprio servidor em produção (veja o capítulo “Implantação”).</p>
+<p>Uma segunda salvaguarda contra ataques CSRF: o servidor rejeita (415) qualquer requisição POST cujo corpo não esteja em JSON. Um formulário HTML comprometido em outro site não consegue enviar JSON.</p>
+<h2 id="75-a-api">7.5. <span style="color: #2e74b5">A API</span></h2>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Método</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Endereço</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Papéis</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Corpo enviado/resposta</b></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/captcha]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">público</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Resposta: <i><b>[{ id, svg }]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">POST</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/auth/login]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">público</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{ login, password, captchaId, captcha }]</b></i>; resposta: <i><b>[{ login, name, role }]</b></i><i><b> </b></i>+ cookie</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">POST</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/auth/logout]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">público</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{}] </b></i>; exclui o cookie</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/auth/me]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">logado</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">resposta: <i><b>[{ login, name, role }]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/schedule?doctorId=&amp;day=]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">todos</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Resposta: a agenda (sem doctorId: para um DOCTOR, a sua própria)</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">POST</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/appointments]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">todos</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{ day, slotId, clientId }] (clientId ignorado</b></i> para um USER); 201</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">DELETE</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/appointments/:id]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">todos</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Um USER só cancela as suas próprias</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/doctors]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">todos</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">a lista (com login para o ADMIN)</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/clients]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">ADMIN, DOCTOR</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">a lista (com login para o ADMIN)</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/doctors/:id]</b></i>, <i><b>[/api/clients/:id]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">ADMIN</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">uma ficha cadastral</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">POST</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/doctors]</b></i>, <i><b>[/api/clients]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">ADMIN</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{ title, firstName, lastName, login?, password? }]</b></i>; 201</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">PUT</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/doctors/:id]</b></i>, <i><b>[/api/clients/:id]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">ADMIN</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{ title, firstName, lastName, login?, password?, version }]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">DELETE</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/doctors/:id]</b></i>, <i><b>[/api/clients/:id]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">ADMIN</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Resposta: <i><b>[{}]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">POST</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/register/access]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">público</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{ captchaId, captcha }]</b></i>; emite um token (cookie)</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/register/access]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">público</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">resposta: <i><b>[{ valid }]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">POST</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/register]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">público + passe</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{ title, firstName, lastName, login, password, confirmation }]</b></i>; 201</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/my-area]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">USER</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">resposta: <i><b>[{ patient, appointments }]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">GET</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/my-account]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">USER</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">Resposta: <i><b>[{ title, firstName, lastName, login, version }]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">PUT</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/my-account]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">USER</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{ title, firstName, lastName, login, password?, confirmation?, currentPassword, version }]</b></i></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">DELETE</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[/api/my-account]</b></i></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">USER</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><i><b>[{ currentPassword }]</b></i>; exclui a conta e suas consultas</div></td></tr></table>
+
+<p>Uma entrada da agenda (<strong><em>[GET /api/schedule]</em></strong>) descreve um horário E o que o usuário logado está autorizado a fazer com ele:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1"></a>{ "id": 3, "startHour": 8, "startMinute": 40, "endHour": 9, "endMinute": 0,
+<a id="__codelineno-7-2" name="__codelineno-7-2"></a>  "free": false,
+<a id="__codelineno-7-3" name="__codelineno-7-3"></a>  "patient": { "title": "Mme", "firstName": "Alice", "lastName": "DURAND" },
+<a id="__codelineno-7-4" name="__codelineno-7-4"></a>  "mine": false, "bookable": false, "appointmentId": 2 }
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><strong><em>[free]</em></strong>: o horário está disponível nesse dia?</li>
+<li><strong><em>[patient]</em></strong>: o paciente da consulta. Para um paciente logado, é igual a <strong><em>[null],</em></strong> exceto para a PRÓPRIA consulta dele: os nomes dos outros pacientes nunca são enviados;</li>
+<li><strong><em>[mine]</em></strong>: esta é a consulta do paciente logado;</li>
+<li><strong><em>[bookable]</em></strong>: o usuário pode reservar este horário (disponível, não no passado e, para um paciente, sem consultas futuras)?</li>
+<li><strong><em>[appointmentId]</em></strong>: preenchido se o usuário puder cancelar esta consulta.</li>
+</ul>
+<p>O servidor DECIDE; o cliente exibe. E mesmo que um cliente trapaceasse (exibindo um botão “Reservar” quando não deveria), o servidor verificaria tudo novamente no momento da reserva.</p>
+<h2 id="76-consultando-a-api-com-curl">7.6. <span style="color: #2e74b5">Consultando a API com curl</span></h2>
+<p>A pasta <strong><em>[curl]</em></strong> do servidor contém os corpos de requisição JSON deste capítulo, um arquivo por requisição. Por exemplo, <strong><em>[curl/login-admin.json]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">,</span><span class="w"> </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"admin"</span><span class="p">,</span><span class="w"> </span><span class="nt">"captchaId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="nt">"captcha"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<p>Os comandos são digitados em um console aberto no diretório <strong><em>[rdvmedecins-nestjs-json]</em></strong>. Algumas opções do <em>[curl]</em>:</p>
+<ul>
+<li><strong><em>[-i]</em></strong>: exibir também os cabeçalhos da resposta; <strong><em>[-s]</em></strong>: sem barra de progresso;</li>
+<li><strong><em>[--json @file]</em></strong>: enviar o conteúdo do arquivo em POST, com o cabeçalho <strong><em>[Content-Type: application/json]</em></strong> (curl 7.82 e posteriores; com uma versão mais antiga, use <strong><em>[-H &quot;Content-Type: application/json&quot; -d @file]</em></strong>);</li>
+<li><strong><em>[-X PUT]</em></strong>, <strong><em>[-X DELETE]</em></strong>: o método HTTP;</li>
+<li><strong><em>[-c cookies.txt]</em></strong>: salvar os cookies recebidos neste arquivo; <strong><em>[-b cookies.txt]</em></strong>: enviá-los de volta. É assim que o <em>[curl]</em> “permanece logado” de um comando para o seguinte, exatamente como faria um navegador.</li>
+</ul>
+<p>No <em>[PowerShell]</em>, é preciso digitar <strong><em>[curl.exe]</em></strong>, e não <strong><em>[curl]</em></strong> (que designa outro comando). As respostas um tanto longas em JSON foram formatadas para este documento, e os cabeçalhos <strong><em>[Date]</em></strong>, <strong><em>[ETag]</em></strong>, <strong><em>[Connection],</em></strong> e <strong><em>[Keep-Alive]</em></strong> foram removidos.</p>
+<h3 id="761-login">7.6.1. <span style="color: #1f4d78">Login</span></h3>
+<p>Primeiro, o CAPTCHA (a imagem foi recortada):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span>
+<span class="normal"><a href="#__codelineno-9-6">6</a></span>
+<span class="normal"><a href="#__codelineno-9-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1"></a>$ curl -i http://localhost:8080/api/captcha
+<a id="__codelineno-9-2" name="__codelineno-9-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-9-3" name="__codelineno-9-3"></a>Cache-Control: no-store
+<a id="__codelineno-9-4" name="__codelineno-9-4"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-9-5" name="__codelineno-9-5"></a>Content-Length: 15076
+<a id="__codelineno-9-6" name="__codelineno-9-6"></a>
+<a id="__codelineno-9-7" name="__codelineno-9-7"></a>{"id": "abf00f0c-60c0-4fde-9782-9906815e26a1", "svg": "&lt;svg xmlns=\"http://www.w3.org/2000/svg\" width=\"150..."}
+</code></pre></div></td></tr></table></div>
+<p>Sem token, uma URL protegida retorna uma resposta 401:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1"></a>$ curl -i http://localhost:8080/api/doctors
+<a id="__codelineno-10-2" name="__codelineno-10-2"></a>HTTP/1.1 401 Unauthorized
+<a id="__codelineno-10-3" name="__codelineno-10-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-10-4" name="__codelineno-10-4"></a>Content-Length: 47
+<a id="__codelineno-10-5" name="__codelineno-10-5"></a>
+<a id="__codelineno-10-6" name="__codelineno-10-6"></a>{"statusCode": 401, "key": "ERRORS.AUTH_REQUIRED"}
+</code></pre></div></td></tr></table></div>
+<p>Um CAPTCHA incorreto, seguido de uma senha incorreta:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span>
+<span class="normal"><a href="#__codelineno-11-3">3</a></span>
+<span class="normal"><a href="#__codelineno-11-4">4</a></span>
+<span class="normal"><a href="#__codelineno-11-5">5</a></span>
+<span class="normal"><a href="#__codelineno-11-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1"></a>$ curl -i --json @curl/login-wrong-captcha.json http://localhost:8080/api/auth/login
+<a id="__codelineno-11-2" name="__codelineno-11-2"></a>HTTP/1.1 400 Bad Request
+<a id="__codelineno-11-3" name="__codelineno-11-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-11-4" name="__codelineno-11-4"></a>Content-Length: 91
+<a id="__codelineno-11-5" name="__codelineno-11-5"></a>
+<a id="__codelineno-11-6" name="__codelineno-11-6"></a>{"statusCode": 400, "key": "ERRORS.WRONG_CAPTCHA", "fields": {"captcha": "ERRORS.WRONG_CAPTCHA"}}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span>
+<span class="normal"><a href="#__codelineno-12-3">3</a></span>
+<span class="normal"><a href="#__codelineno-12-4">4</a></span>
+<span class="normal"><a href="#__codelineno-12-5">5</a></span>
+<span class="normal"><a href="#__codelineno-12-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1"></a>$ curl -i --json @curl/login-wrong-password.json http://localhost:8080/api/auth/login
+<a id="__codelineno-12-2" name="__codelineno-12-2"></a>HTTP/1.1 401 Unauthorized
+<a id="__codelineno-12-3" name="__codelineno-12-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-12-4" name="__codelineno-12-4"></a>Content-Length: 38
+<a id="__codelineno-12-5" name="__codelineno-12-5"></a>
+<a id="__codelineno-12-6" name="__codelineno-12-6"></a>{"statusCode": 401, "key": "LOGIN.ERROR"}
+</code></pre></div></td></tr></table></div>
+<p>Um login bem-sucedido define o cookie, que o <em>[curl]</em> armazena em <strong><em>[cookies.txt]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1"></a>$ curl -i -c cookies.txt --json @curl/login-admin.json http://localhost:8080/api/auth/login
+<a id="__codelineno-13-2" name="__codelineno-13-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-13-3" name="__codelineno-13-3"></a>Set-Cookie: rdvmedecins_jwt=eyJhbGciOiJIUzI1NiIs...; Max-Age=7200; Path=/api; Expires=Mon, 28 Sep 2026 12:49:12 GMT; HttpOnly; SameSite=Strict
+<a id="__codelineno-13-4" name="__codelineno-13-4"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-13-5" name="__codelineno-13-5"></a>Content-Length: 55
+<a id="__codelineno-13-6" name="__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7"></a>{"login": "admin", "name": "Administrator", "role": "ADMIN"}
+</code></pre></div></td></tr></table></div>
+<p>Com esse cookie, o servidor sabe quem somos:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span>
+<span class="normal"><a href="#__codelineno-14-5">5</a></span>
+<span class="normal"><a href="#__codelineno-14-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1"></a>$ curl -i -b cookies.txt http://localhost:8080/api/auth/me
+<a id="__codelineno-14-2" name="__codelineno-14-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-14-3" name="__codelineno-14-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-14-4" name="__codelineno-14-4"></a>Content-Length: 55
+<a id="__codelineno-14-5" name="__codelineno-14-5"></a>
+<a id="__codelineno-14-6" name="__codelineno-14-6"></a>{"login": "admin", "name": "Administrator", "role": "ADMIN"}
+</code></pre></div></td></tr></table></div>
+<p>Um token falsificado (ou expirado) resulta em uma sessão expirada, e o servidor instrui o navegador a apagar o cookie:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span>
+<span class="normal"><a href="#__codelineno-15-2">2</a></span>
+<span class="normal"><a href="#__codelineno-15-3">3</a></span>
+<span class="normal"><a href="#__codelineno-15-4">4</a></span>
+<span class="normal"><a href="#__codelineno-15-5">5</a></span>
+<span class="normal"><a href="#__codelineno-15-6">6</a></span>
+<span class="normal"><a href="#__codelineno-15-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1"></a>$ curl -i -b "rdvmedecins_jwt=abc.def.ghi" http://localhost:8080/api/auth/me
+<a id="__codelineno-15-2" name="__codelineno-15-2"></a>HTTP/1.1 401 Unauthorized
+<a id="__codelineno-15-3" name="__codelineno-15-3"></a>Set-Cookie: rdvmedecins_jwt=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:00 GMT
+<a id="__codelineno-15-4" name="__codelineno-15-4"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-15-5" name="__codelineno-15-5"></a>Content-Length: 49
+<a id="__codelineno-15-6" name="__codelineno-15-6"></a>
+<a id="__codelineno-15-7" name="__codelineno-15-7"></a>{"statusCode": 401, "key": "ERRORS.SESSION_EXPIRED"}
+</code></pre></div></td></tr></table></div>
+<h3 id="762-medicos-clientes-calendario">7.6.2. <span style="color: #1f4d78">Médicos, clientes, calendário</span></h3>
+<p>A lista de médicos, vista pelo ADMIN (com os logins):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1"></a>$ curl -i -b cookies.txt http://localhost:8080/api/doctors
+<a id="__codelineno-16-2" name="__codelineno-16-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-16-3" name="__codelineno-16-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-16-4" name="__codelineno-16-4"></a>Content-Length: 282
+<a id="__codelineno-16-5" name="__codelineno-16-5"></a>
+<a id="__codelineno-16-6" name="__codelineno-16-6"></a>[
+<a id="__codelineno-16-7" name="__codelineno-16-7"></a>  {"id": 3, "version": 0, "title": "Melle", "firstName": "Sophie", "lastName": "DUPONT", "login": "dupont"},
+<a id="__codelineno-16-8" name="__codelineno-16-8"></a>  {"id": 1, "version": 0, "title": "Mme", "firstName": "Marie", "lastName": "PELISSIER", "login": "pelissier"},
+<a id="__codelineno-16-9" name="__codelineno-16-9"></a>  {"id": 2, "version": 0, "title": "Mr", "firstName": "Paul", "lastName": "TATOU", "login": "tatou"}
+<a id="__codelineno-16-10" name="__codelineno-16-10"></a>]
+</code></pre></div></td></tr></table></div>
+<p>Agenda do Dr. PELISSIER para 15 de janeiro de 2030:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-17-10">10</a></span>
+<span class="normal"><a href="#__codelineno-17-11">11</a></span>
+<span class="normal"><a href="#__codelineno-17-12">12</a></span>
+<span class="normal"><a href="#__codelineno-17-13">13</a></span>
+<span class="normal"><a href="#__codelineno-17-14">14</a></span>
+<span class="normal"><a href="#__codelineno-17-15">15</a></span>
+<span class="normal"><a href="#__codelineno-17-16">16</a></span>
+<span class="normal"><a href="#__codelineno-17-17">17</a></span>
+<span class="normal"><a href="#__codelineno-17-18">18</a></span>
+<span class="normal"><a href="#__codelineno-17-19">19</a></span>
+<span class="normal"><a href="#__codelineno-17-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1"></a>$ curl -s -b cookies.txt "http://localhost:8080/api/schedule?doctorId=1&amp;day=2030-01-15"
+<a id="__codelineno-17-2" name="__codelineno-17-2"></a>{
+<a id="__codelineno-17-3" name="__codelineno-17-3"></a>  "doctor": {"id": 1, "version": 0, "title": "Mme", "firstName": "Marie", "lastName": "PELISSIER"},
+<a id="__codelineno-17-4" name="__codelineno-17-4"></a>  "day": "2030-01-15",
+<a id="__codelineno-17-5" name="__codelineno-17-5"></a>  "slots": [
+<a id="__codelineno-17-6" name="__codelineno-17-6"></a>    {"id": 1, "startHour": 8, "startMinute": 0, "endHour": 8, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-7" name="__codelineno-17-7"></a>    {"id": 2, "startHour": 8, "startMinute": 20, "endHour": 8, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-8" name="__codelineno-17-8"></a>    {"id": 3, "startHour": 8, "startMinute": 40, "endHour": 9, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-9" name="__codelineno-17-9"></a>    {"id": 4, "startHour": 9, "startMinute": 0, "endHour": 9, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-10" name="__codelineno-17-10"></a>    {"id": 5, "startHour": 9, "startMinute": 20, "endHour": 9, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-11" name="__codelineno-17-11"></a>    {"id": 6, "startHour": 9, "startMinute": 40, "endHour": 10, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-12" name="__codelineno-17-12"></a>    {"id": 7, "startHour": 10, "startMinute": 0, "endHour": 10, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-13" name="__codelineno-17-13"></a>    {"id": 8, "startHour": 10, "startMinute": 20, "endHour": 10, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-14" name="__codelineno-17-14"></a>    {"id": 9, "startHour": 10, "startMinute": 40, "endHour": 11, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-15" name="__codelineno-17-15"></a>    {"id": 10, "startHour": 11, "startMinute": 0, "endHour": 11, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-16" name="__codelineno-17-16"></a>    {"id": 11, "startHour": 11, "startMinute": 20, "endHour": 11, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-17-17" name="__codelineno-17-17"></a>    {"id": 12, "startHour": 11, "startMinute": 40, "endHour": 12, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null}
+<a id="__codelineno-17-18" name="__codelineno-17-18"></a>  ],
+<a id="__codelineno-17-19" name="__codelineno-17-19"></a>  "info": null
+<a id="__codelineno-17-20" name="__codelineno-17-20"></a>}
+</code></pre></div></td></tr></table></div>
+<p>Uma data que não existe:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span>
+<span class="normal"><a href="#__codelineno-18-2">2</a></span>
+<span class="normal"><a href="#__codelineno-18-3">3</a></span>
+<span class="normal"><a href="#__codelineno-18-4">4</a></span>
+<span class="normal"><a href="#__codelineno-18-5">5</a></span>
+<span class="normal"><a href="#__codelineno-18-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1"></a>$ curl -i -b cookies.txt "http://localhost:8080/api/schedule?doctorId=1&amp;day=2030-02-30"
+<a id="__codelineno-18-2" name="__codelineno-18-2"></a>HTTP/1.1 400 Bad Request
+<a id="__codelineno-18-3" name="__codelineno-18-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-18-4" name="__codelineno-18-4"></a>Content-Length: 46
+<a id="__codelineno-18-5" name="__codelineno-18-5"></a>
+<a id="__codelineno-18-6" name="__codelineno-18-6"></a>{"statusCode": 400, "key": "ERRORS.INVALID_DATE"}
+</code></pre></div></td></tr></table></div>
+<h3 id="763-consultas">7.6.3. <span style="color: #1f4d78">Consultas</span></h3>
+<p>O ADMIN reserva o horário 3 para o paciente nº 2 (Alice DURAND). O corpo da requisição:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"day"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2030-01-15"</span><span class="p">,</span><span class="w"> </span><span class="nt">"slotId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="nt">"clientId"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span>
+<span class="normal"><a href="#__codelineno-20-4">4</a></span>
+<span class="normal"><a href="#__codelineno-20-5">5</a></span>
+<span class="normal"><a href="#__codelineno-20-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1"></a>$ curl -i -b cookies.txt --json @curl/appointment-admin.json http://localhost:8080/api/appointments
+<a id="__codelineno-20-2" name="__codelineno-20-2"></a>HTTP/1.1 201 Created
+<a id="__codelineno-20-3" name="__codelineno-20-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-20-4" name="__codelineno-20-4"></a>Content-Length: 51
+<a id="__codelineno-20-5" name="__codelineno-20-5"></a>
+<a id="__codelineno-20-6" name="__codelineno-20-6"></a>{"id": 2, "day": "2030-01-15", "slotId": 3, "clientId": 2}
+</code></pre></div></td></tr></table></div>
+<p>O calendário agora exibe essa consulta, junto com o nome do paciente e as instruções para cancelá-la ([appointmentId]):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-21-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-21-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-21-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-21-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-21-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-21-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-21-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-21-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-21-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-21-10">10</a></span>
+<span class="normal"><a href="#__codelineno-21-11">11</a></span>
+<span class="normal"><a href="#__codelineno-21-12">12</a></span>
+<span class="normal"><a href="#__codelineno-21-13">13</a></span>
+<span class="normal"><a href="#__codelineno-21-14">14</a></span>
+<span class="normal"><a href="#__codelineno-21-15">15</a></span>
+<span class="normal"><a href="#__codelineno-21-16">16</a></span>
+<span class="normal"><a href="#__codelineno-21-17">17</a></span>
+<span class="normal"><a href="#__codelineno-21-18">18</a></span>
+<span class="normal"><a href="#__codelineno-21-19">19</a></span>
+<span class="normal"><a href="#__codelineno-21-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1"></a>$ curl -s -b cookies.txt "http://localhost:8080/api/schedule?doctorId=1&amp;day=2030-01-15"
+<a id="__codelineno-21-2" name="__codelineno-21-2"></a>{
+<a id="__codelineno-21-3" name="__codelineno-21-3"></a>  "doctor": {"id": 1, "version": 0, "title": "Mme", "firstName": "Marie", "lastName": "PELISSIER"},
+<a id="__codelineno-21-4" name="__codelineno-21-4"></a>  "day": "2030-01-15",
+<a id="__codelineno-21-5" name="__codelineno-21-5"></a>  "slots": [
+<a id="__codelineno-21-6" name="__codelineno-21-6"></a>    {"id": 1, "startHour": 8, "startMinute": 0, "endHour": 8, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-7" name="__codelineno-21-7"></a>    {"id": 2, "startHour": 8, "startMinute": 20, "endHour": 8, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-8" name="__codelineno-21-8"></a>    {"id": 3, "startHour": 8, "startMinute": 40, "endHour": 9, "endMinute": 0, "free": false, "patient": {"title": "Mme", "firstName": "Alice", "lastName": "DURAND"}, "mine": false, "bookable": false, "appointmentId": 2},
+<a id="__codelineno-21-9" name="__codelineno-21-9"></a>    {"id": 4, "startHour": 9, "startMinute": 0, "endHour": 9, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-10" name="__codelineno-21-10"></a>    {"id": 5, "startHour": 9, "startMinute": 20, "endHour": 9, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-11" name="__codelineno-21-11"></a>    {"id": 6, "startHour": 9, "startMinute": 40, "endHour": 10, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-12" name="__codelineno-21-12"></a>    {"id": 7, "startHour": 10, "startMinute": 0, "endHour": 10, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-13" name="__codelineno-21-13"></a>    {"id": 8, "startHour": 10, "startMinute": 20, "endHour": 10, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-14" name="__codelineno-21-14"></a>    {"id": 9, "startHour": 10, "startMinute": 40, "endHour": 11, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-15" name="__codelineno-21-15"></a>    {"id": 10, "startHour": 11, "startMinute": 0, "endHour": 11, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-16" name="__codelineno-21-16"></a>    {"id": 11, "startHour": 11, "startMinute": 20, "endHour": 11, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-21-17" name="__codelineno-21-17"></a>    {"id": 12, "startHour": 11, "startMinute": 40, "endHour": 12, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null}
+<a id="__codelineno-21-18" name="__codelineno-21-18"></a>  ],
+<a id="__codelineno-21-19" name="__codelineno-21-19"></a>  "info": null
+<a id="__codelineno-21-20" name="__codelineno-21-20"></a>}
+</code></pre></div></td></tr></table></div>
+<p>Tente novamente: o paciente já tem uma consulta futura. Uma consulta no passado também é rejeitada:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-22-1">1</a></span>
+<span class="normal"><a href="#__codelineno-22-2">2</a></span>
+<span class="normal"><a href="#__codelineno-22-3">3</a></span>
+<span class="normal"><a href="#__codelineno-22-4">4</a></span>
+<span class="normal"><a href="#__codelineno-22-5">5</a></span>
+<span class="normal"><a href="#__codelineno-22-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1"></a>$ curl -i -b cookies.txt --json @curl/appointment-admin.json http://localhost:8080/api/appointments
+<a id="__codelineno-22-2" name="__codelineno-22-2"></a>HTTP/1.1 409 Conflict
+<a id="__codelineno-22-3" name="__codelineno-22-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-22-4" name="__codelineno-22-4"></a>Content-Length: 66
+<a id="__codelineno-22-5" name="__codelineno-22-5"></a>
+<a id="__codelineno-22-6" name="__codelineno-22-6"></a>{"statusCode": 409, "key": "ERRORS.PATIENT_HAS_UPCOMING_APPOINTMENT"}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-23-1">1</a></span>
+<span class="normal"><a href="#__codelineno-23-2">2</a></span>
+<span class="normal"><a href="#__codelineno-23-3">3</a></span>
+<span class="normal"><a href="#__codelineno-23-4">4</a></span>
+<span class="normal"><a href="#__codelineno-23-5">5</a></span>
+<span class="normal"><a href="#__codelineno-23-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1"></a>$ curl -i -b cookies.txt --json @curl/appointment-past.json http://localhost:8080/api/appointments
+<a id="__codelineno-23-2" name="__codelineno-23-2"></a>HTTP/1.1 409 Conflict
+<a id="__codelineno-23-3" name="__codelineno-23-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-23-4" name="__codelineno-23-4"></a>Content-Length: 43
+<a id="__codelineno-23-5" name="__codelineno-23-5"></a>
+<a id="__codelineno-23-6" name="__codelineno-23-6"></a>{"statusCode": 409, "key": "ERRORS.PAST_DATE"}
+</code></pre></div></td></tr></table></div>
+<p>Um formulário HTML padrão (simulado aqui por <strong><em>[-d]</em></strong>, que envia <strong><em>[application/x-www-form-urlencoded]</em></strong>) é rejeitado:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span>
+<span class="normal"><a href="#__codelineno-24-4">4</a></span>
+<span class="normal"><a href="#__codelineno-24-5">5</a></span>
+<span class="normal"><a href="#__codelineno-24-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1"></a>$ curl -i -b cookies.txt -d "day=2030-01-15&amp;slotId=4&amp;clientId=2" http://localhost:8080/api/appointments
+<a id="__codelineno-24-2" name="__codelineno-24-2"></a>HTTP/1.1 415 Unsupported Media Type
+<a id="__codelineno-24-3" name="__codelineno-24-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-24-4" name="__codelineno-24-4"></a>Content-Length: 47
+<a id="__codelineno-24-5" name="__codelineno-24-5"></a>
+<a id="__codelineno-24-6" name="__codelineno-24-6"></a>{"statusCode": 415, "key": "ERRORS.JSON_REQUIRED"}
+</code></pre></div></td></tr></table></div>
+<h3 id="764-a-perspectiva-de-um-paciente">7.6.4. <span style="color: #1f4d78">A perspectiva de um paciente</span></h3>
+<p>Você faz logout e depois login como <strong><em>[martin]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span>
+<span class="normal"><a href="#__codelineno-25-3">3</a></span>
+<span class="normal"><a href="#__codelineno-25-4">4</a></span>
+<span class="normal"><a href="#__codelineno-25-5">5</a></span>
+<span class="normal"><a href="#__codelineno-25-6">6</a></span>
+<span class="normal"><a href="#__codelineno-25-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1"></a>$ curl -i -b cookies.txt -c cookies.txt --json @curl/empty.json http://localhost:8080/api/auth/logout
+<a id="__codelineno-25-2" name="__codelineno-25-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-25-3" name="__codelineno-25-3"></a>Set-Cookie: rdvmedecins_jwt=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:00 GMT
+<a id="__codelineno-25-4" name="__codelineno-25-4"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-25-5" name="__codelineno-25-5"></a>Content-Length: 2
+<a id="__codelineno-25-6" name="__codelineno-25-6"></a>
+<a id="__codelineno-25-7" name="__codelineno-25-7"></a>{}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1"></a>$ curl -s -c cookies-martin.txt --json @curl/login-martin.json http://localhost:8080/api/auth/login
+<a id="__codelineno-26-2" name="__codelineno-26-2"></a>{"login": "martin", "name": "Jean MARTIN", "role": "USER"}
+</code></pre></div></td></tr></table></div>
+<p>A mesma agenda, vista por um paciente: o horário 3 está ocupado (<strong><em>[&quot;free&quot;: false]</em></strong>), mas <strong><em>[&quot;patient&quot;]</em></strong> equivale a <strong><em>[null]</em></strong>: o nome de Alice, DURAND, não foi enviado:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-27-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-27-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-27-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-27-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-27-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-27-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-27-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-27-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-27-10">10</a></span>
+<span class="normal"><a href="#__codelineno-27-11">11</a></span>
+<span class="normal"><a href="#__codelineno-27-12">12</a></span>
+<span class="normal"><a href="#__codelineno-27-13">13</a></span>
+<span class="normal"><a href="#__codelineno-27-14">14</a></span>
+<span class="normal"><a href="#__codelineno-27-15">15</a></span>
+<span class="normal"><a href="#__codelineno-27-16">16</a></span>
+<span class="normal"><a href="#__codelineno-27-17">17</a></span>
+<span class="normal"><a href="#__codelineno-27-18">18</a></span>
+<span class="normal"><a href="#__codelineno-27-19">19</a></span>
+<span class="normal"><a href="#__codelineno-27-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1"></a>$ curl -s -b cookies-martin.txt "http://localhost:8080/api/schedule?doctorId=1&amp;day=2030-01-15"
+<a id="__codelineno-27-2" name="__codelineno-27-2"></a>{
+<a id="__codelineno-27-3" name="__codelineno-27-3"></a>  "doctor": {"id": 1, "version": 0, "title": "Mme", "firstName": "Marie", "lastName": "PELISSIER"},
+<a id="__codelineno-27-4" name="__codelineno-27-4"></a>  "day": "2030-01-15",
+<a id="__codelineno-27-5" name="__codelineno-27-5"></a>  "slots": [
+<a id="__codelineno-27-6" name="__codelineno-27-6"></a>    {"id": 1, "startHour": 8, "startMinute": 0, "endHour": 8, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-7" name="__codelineno-27-7"></a>    {"id": 2, "startHour": 8, "startMinute": 20, "endHour": 8, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-8" name="__codelineno-27-8"></a>    {"id": 3, "startHour": 8, "startMinute": 40, "endHour": 9, "endMinute": 0, "free": false, "patient": null, "mine": false, "bookable": false, "appointmentId": null},
+<a id="__codelineno-27-9" name="__codelineno-27-9"></a>    {"id": 4, "startHour": 9, "startMinute": 0, "endHour": 9, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-10" name="__codelineno-27-10"></a>    {"id": 5, "startHour": 9, "startMinute": 20, "endHour": 9, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-11" name="__codelineno-27-11"></a>    {"id": 6, "startHour": 9, "startMinute": 40, "endHour": 10, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-12" name="__codelineno-27-12"></a>    {"id": 7, "startHour": 10, "startMinute": 0, "endHour": 10, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-13" name="__codelineno-27-13"></a>    {"id": 8, "startHour": 10, "startMinute": 20, "endHour": 10, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-14" name="__codelineno-27-14"></a>    {"id": 9, "startHour": 10, "startMinute": 40, "endHour": 11, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-15" name="__codelineno-27-15"></a>    {"id": 10, "startHour": 11, "startMinute": 0, "endHour": 11, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-16" name="__codelineno-27-16"></a>    {"id": 11, "startHour": 11, "startMinute": 20, "endHour": 11, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-27-17" name="__codelineno-27-17"></a>    {"id": 12, "startHour": 11, "startMinute": 40, "endHour": 12, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null}
+<a id="__codelineno-27-18" name="__codelineno-27-18"></a>  ],
+<a id="__codelineno-27-19" name="__codelineno-27-19"></a>  "info": null
+<a id="__codelineno-27-20" name="__codelineno-27-20"></a>}
+</code></pre></div></td></tr></table></div>
+<p>Um paciente não tem acesso à lista de clientes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span>
+<span class="normal"><a href="#__codelineno-28-2">2</a></span>
+<span class="normal"><a href="#__codelineno-28-3">3</a></span>
+<span class="normal"><a href="#__codelineno-28-4">4</a></span>
+<span class="normal"><a href="#__codelineno-28-5">5</a></span>
+<span class="normal"><a href="#__codelineno-28-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1"></a>$ curl -i -b cookies-martin.txt http://localhost:8080/api/clients
+<a id="__codelineno-28-2" name="__codelineno-28-2"></a>HTTP/1.1 403 Forbidden
+<a id="__codelineno-28-3" name="__codelineno-28-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-28-4" name="__codelineno-28-4"></a>Content-Length: 43
+<a id="__codelineno-28-5" name="__codelineno-28-5"></a>
+<a id="__codelineno-28-6" name="__codelineno-28-6"></a>{"statusCode": 403, "key": "ERRORS.FORBIDDEN"}
+</code></pre></div></td></tr></table></div>
+<p>Ele faz uma reserva para si mesmo (o corpo não contém <strong><em>[clientId]</em></strong>), uma vez, não duas:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"day"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2030-01-15"</span><span class="p">,</span><span class="w"> </span><span class="nt">"slotId"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span>
+<span class="normal"><a href="#__codelineno-30-3">3</a></span>
+<span class="normal"><a href="#__codelineno-30-4">4</a></span>
+<span class="normal"><a href="#__codelineno-30-5">5</a></span>
+<span class="normal"><a href="#__codelineno-30-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1"></a>$ curl -i -b cookies-martin.txt --json @curl/appointment-martin.json http://localhost:8080/api/appointments
+<a id="__codelineno-30-2" name="__codelineno-30-2"></a>HTTP/1.1 201 Created
+<a id="__codelineno-30-3" name="__codelineno-30-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-30-4" name="__codelineno-30-4"></a>Content-Length: 51
+<a id="__codelineno-30-5" name="__codelineno-30-5"></a>
+<a id="__codelineno-30-6" name="__codelineno-30-6"></a>{"id": 3, "day": "2030-01-15", "slotId": 5, "clientId": 1}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span>
+<span class="normal"><a href="#__codelineno-31-2">2</a></span>
+<span class="normal"><a href="#__codelineno-31-3">3</a></span>
+<span class="normal"><a href="#__codelineno-31-4">4</a></span>
+<span class="normal"><a href="#__codelineno-31-5">5</a></span>
+<span class="normal"><a href="#__codelineno-31-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1"></a>$ curl -i -b cookies-martin.txt --json @curl/appointment-martin-2.json http://localhost:8080/api/appointments
+<a id="__codelineno-31-2" name="__codelineno-31-2"></a>HTTP/1.1 409 Conflict
+<a id="__codelineno-31-3" name="__codelineno-31-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-31-4" name="__codelineno-31-4"></a>Content-Length: 55
+<a id="__codelineno-31-5" name="__codelineno-31-5"></a>
+<a id="__codelineno-31-6" name="__codelineno-31-6"></a>{"statusCode": 409, "key": "SCHEDULE.ALREADY_BOOKED_INFO"}
+</code></pre></div></td></tr></table></div>
+<p>Sua área:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-32-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-32-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-32-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-32-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-32-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-32-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-32-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-32-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-32-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-32-10">10</a></span>
+<span class="normal"><a href="#__codelineno-32-11">11</a></span>
+<span class="normal"><a href="#__codelineno-32-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1"></a>$ curl -s -b cookies-martin.txt http://localhost:8080/api/my-area
+<a id="__codelineno-32-2" name="__codelineno-32-2"></a>{
+<a id="__codelineno-32-3" name="__codelineno-32-3"></a>  "patient": {"title": "Mr", "firstName": "Jean", "lastName": "MARTIN"},
+<a id="__codelineno-32-4" name="__codelineno-32-4"></a>  "appointments": [
+<a id="__codelineno-32-5" name="__codelineno-32-5"></a>    {
+<a id="__codelineno-32-6" name="__codelineno-32-6"></a>      "id": 3,
+<a id="__codelineno-32-7" name="__codelineno-32-7"></a>      "day": "2030-01-15",
+<a id="__codelineno-32-8" name="__codelineno-32-8"></a>      "slot": {"id": 5, "startHour": 9, "startMinute": 20, "endHour": 9, "endMinute": 40},
+<a id="__codelineno-32-9" name="__codelineno-32-9"></a>      "doctor": {"id": 1, "version": 0, "title": "Mme", "firstName": "Marie", "lastName": "PELISSIER"}
+<a id="__codelineno-32-10" name="__codelineno-32-10"></a>    }
+<a id="__codelineno-32-11" name="__codelineno-32-11"></a>  ]
+<a id="__codelineno-32-12" name="__codelineno-32-12"></a>}
+</code></pre></div></td></tr></table></div>
+<p>Ele não pode cancelar a consulta de outro paciente. O servidor responde “não encontrado”, exatamente como faria para uma consulta que não existe: não revela nada sobre as consultas dos outros pacientes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-33-1">1</a></span>
+<span class="normal"><a href="#__codelineno-33-2">2</a></span>
+<span class="normal"><a href="#__codelineno-33-3">3</a></span>
+<span class="normal"><a href="#__codelineno-33-4">4</a></span>
+<span class="normal"><a href="#__codelineno-33-5">5</a></span>
+<span class="normal"><a href="#__codelineno-33-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1"></a>$ curl -i -b cookies-martin.txt -X DELETE http://localhost:8080/api/appointments/2
+<a id="__codelineno-33-2" name="__codelineno-33-2"></a>HTTP/1.1 404 Not Found
+<a id="__codelineno-33-3" name="__codelineno-33-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-33-4" name="__codelineno-33-4"></a>Content-Length: 55
+<a id="__codelineno-33-5" name="__codelineno-33-5"></a>
+<a id="__codelineno-33-6" name="__codelineno-33-6"></a>{"statusCode": 404, "key": "ERRORS.APPOINTMENT_NOT_FOUND"}
+</code></pre></div></td></tr></table></div>
+<p>A sua própria, sim:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-34-1">1</a></span>
+<span class="normal"><a href="#__codelineno-34-2">2</a></span>
+<span class="normal"><a href="#__codelineno-34-3">3</a></span>
+<span class="normal"><a href="#__codelineno-34-4">4</a></span>
+<span class="normal"><a href="#__codelineno-34-5">5</a></span>
+<span class="normal"><a href="#__codelineno-34-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1"></a>$ curl -i -b cookies-martin.txt -X DELETE http://localhost:8080/api/appointments/3
+<a id="__codelineno-34-2" name="__codelineno-34-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-34-3" name="__codelineno-34-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-34-4" name="__codelineno-34-4"></a>Content-Length: 2
+<a id="__codelineno-34-5" name="__codelineno-34-5"></a>
+<a id="__codelineno-34-6" name="__codelineno-34-6"></a>{}
+</code></pre></div></td></tr></table></div>
+<h3 id="765-a-perspectiva-de-um-medico">7.6.5. <span style="color: #1f4d78">A perspectiva de um médico</span></h3>
+<p>Sem [doctorId], um médico logado recebe a SUA PRÓPRIA agenda, com todos os nomes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-35-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-35-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-35-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-35-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-35-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-35-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-35-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-35-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-35-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-35-10">10</a></span>
+<span class="normal"><a href="#__codelineno-35-11">11</a></span>
+<span class="normal"><a href="#__codelineno-35-12">12</a></span>
+<span class="normal"><a href="#__codelineno-35-13">13</a></span>
+<span class="normal"><a href="#__codelineno-35-14">14</a></span>
+<span class="normal"><a href="#__codelineno-35-15">15</a></span>
+<span class="normal"><a href="#__codelineno-35-16">16</a></span>
+<span class="normal"><a href="#__codelineno-35-17">17</a></span>
+<span class="normal"><a href="#__codelineno-35-18">18</a></span>
+<span class="normal"><a href="#__codelineno-35-19">19</a></span>
+<span class="normal"><a href="#__codelineno-35-20">20</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1"></a>$ curl -s -b cookies-pelissier.txt "http://localhost:8080/api/schedule?day=2030-01-15"
+<a id="__codelineno-35-2" name="__codelineno-35-2"></a>{
+<a id="__codelineno-35-3" name="__codelineno-35-3"></a>  "doctor": {"id": 1, "version": 0, "title": "Mme", "firstName": "Marie", "lastName": "PELISSIER"},
+<a id="__codelineno-35-4" name="__codelineno-35-4"></a>  "day": "2030-01-15",
+<a id="__codelineno-35-5" name="__codelineno-35-5"></a>  "slots": [
+<a id="__codelineno-35-6" name="__codelineno-35-6"></a>    {"id": 1, "startHour": 8, "startMinute": 0, "endHour": 8, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-7" name="__codelineno-35-7"></a>    {"id": 2, "startHour": 8, "startMinute": 20, "endHour": 8, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-8" name="__codelineno-35-8"></a>    {"id": 3, "startHour": 8, "startMinute": 40, "endHour": 9, "endMinute": 0, "free": false, "patient": {"title": "Mme", "firstName": "Alice", "lastName": "DURAND"}, "mine": false, "bookable": false, "appointmentId": 2},
+<a id="__codelineno-35-9" name="__codelineno-35-9"></a>    {"id": 4, "startHour": 9, "startMinute": 0, "endHour": 9, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-10" name="__codelineno-35-10"></a>    {"id": 5, "startHour": 9, "startMinute": 20, "endHour": 9, "endMinute": 40, "free": false, "patient": {"title": "Mr", "firstName": "Jean", "lastName": "MARTIN"}, "mine": false, "bookable": false, "appointmentId": 3},
+<a id="__codelineno-35-11" name="__codelineno-35-11"></a>    {"id": 6, "startHour": 9, "startMinute": 40, "endHour": 10, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-12" name="__codelineno-35-12"></a>    {"id": 7, "startHour": 10, "startMinute": 0, "endHour": 10, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-13" name="__codelineno-35-13"></a>    {"id": 8, "startHour": 10, "startMinute": 20, "endHour": 10, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-14" name="__codelineno-35-14"></a>    {"id": 9, "startHour": 10, "startMinute": 40, "endHour": 11, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-15" name="__codelineno-35-15"></a>    {"id": 10, "startHour": 11, "startMinute": 0, "endHour": 11, "endMinute": 20, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-16" name="__codelineno-35-16"></a>    {"id": 11, "startHour": 11, "startMinute": 20, "endHour": 11, "endMinute": 40, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null},
+<a id="__codelineno-35-17" name="__codelineno-35-17"></a>    {"id": 12, "startHour": 11, "startMinute": 40, "endHour": 12, "endMinute": 0, "free": true, "patient": null, "mine": false, "bookable": true, "appointmentId": null}
+<a id="__codelineno-35-18" name="__codelineno-35-18"></a>  ],
+<a id="__codelineno-35-19" name="__codelineno-35-19"></a>  "info": null
+<a id="__codelineno-35-20" name="__codelineno-35-20"></a>}
+</code></pre></div></td></tr></table></div>
+<p>Ele não gerencia médicos:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-36-1">1</a></span>
+<span class="normal"><a href="#__codelineno-36-2">2</a></span>
+<span class="normal"><a href="#__codelineno-36-3">3</a></span>
+<span class="normal"><a href="#__codelineno-36-4">4</a></span>
+<span class="normal"><a href="#__codelineno-36-5">5</a></span>
+<span class="normal"><a href="#__codelineno-36-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1"></a>$ curl -i -b cookies-pelissier.txt --json @curl/doctor-add.json http://localhost:8080/api/doctors
+<a id="__codelineno-36-2" name="__codelineno-36-2"></a>HTTP/1.1 403 Forbidden
+<a id="__codelineno-36-3" name="__codelineno-36-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-36-4" name="__codelineno-36-4"></a>Content-Length: 43
+<a id="__codelineno-36-5" name="__codelineno-36-5"></a>
+<a id="__codelineno-36-6" name="__codelineno-36-6"></a>{"statusCode": 403, "key": "ERRORS.FORBIDDEN"}
+</code></pre></div></td></tr></table></div>
+<h3 id="766-gerenciamento-de-medicos-e-clientes-admin">7.6.6. <span style="color: #1f4d78">Gerenciamento de médicos e clientes (ADMIN)</span></h3>
+<p>Uma inclusão. Se o nome de usuário estiver ausente, o padrão é o nome em minúsculas; a senha é o nome de usuário:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-37-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mme"</span><span class="p">,</span><span class="w"> </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Claire"</span><span class="p">,</span><span class="w"> </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LEROY"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-38-1">1</a></span>
+<span class="normal"><a href="#__codelineno-38-2">2</a></span>
+<span class="normal"><a href="#__codelineno-38-3">3</a></span>
+<span class="normal"><a href="#__codelineno-38-4">4</a></span>
+<span class="normal"><a href="#__codelineno-38-5">5</a></span>
+<span class="normal"><a href="#__codelineno-38-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1"></a>$ curl -i -b cookies.txt --json @curl/doctor-add.json http://localhost:8080/api/doctors
+<a id="__codelineno-38-2" name="__codelineno-38-2"></a>HTTP/1.1 201 Created
+<a id="__codelineno-38-3" name="__codelineno-38-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-38-4" name="__codelineno-38-4"></a>Content-Length: 90
+<a id="__codelineno-38-5" name="__codelineno-38-5"></a>
+<a id="__codelineno-38-6" name="__codelineno-38-6"></a>{"id": 4, "version": 1, "title": "Mme", "firstName": "Claire", "lastName": "LEROY", "login": "leroy"}
+</code></pre></div></td></tr></table></div>
+<p>Corpo inválido: a resposta lista o erro de cada campo:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-39-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dr"</span><span class="p">,</span><span class="w"> </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w"> </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A-LAST-NAME-FAR-TOO-LONG-FOR-THE-DB"</span><span class="p">,</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Claire L"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-40-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-40-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-40-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-40-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-40-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-40-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-40-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-40-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-40-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-40-10">10</a></span>
+<span class="normal"><a href="#__codelineno-40-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1"></a>$ curl -i -b cookies.txt --json @curl/doctor-invalid.json http://localhost:8080/api/doctors
+<a id="__codelineno-40-2" name="__codelineno-40-2"></a>HTTP/1.1 400 Bad Request
+<a id="__codelineno-40-3" name="__codelineno-40-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-40-4" name="__codelineno-40-4"></a>Content-Length: 218
+<a id="__codelineno-40-5" name="__codelineno-40-5"></a>
+<a id="__codelineno-40-6" name="__codelineno-40-6"></a>{
+<a id="__codelineno-40-7" name="__codelineno-40-7"></a>  "statusCode": 400,
+<a id="__codelineno-40-8" name="__codelineno-40-8"></a>  "key": "ERRORS.INVALID_FORM",
+<a id="__codelineno-40-9" name="__codelineno-40-9"></a>  "params": {"min": "6"},
+<a id="__codelineno-40-10" name="__codelineno-40-10"></a>  "fields": {"login": "ERRORS.INVALID_LOGIN", "title": "ERRORS.INVALID_TITLE", "firstName": "ERRORS.FIRSTNAME_REQUIRED", "lastName": "ERRORS.LASTNAME_TOO_LONG"}
+<a id="__codelineno-40-11" name="__codelineno-40-11"></a>}
+</code></pre></div></td></tr></table></div>
+<p>Um homônimo: os dois campos afetados são sinalizados:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-41-1">1</a></span>
+<span class="normal"><a href="#__codelineno-41-2">2</a></span>
+<span class="normal"><a href="#__codelineno-41-3">3</a></span>
+<span class="normal"><a href="#__codelineno-41-4">4</a></span>
+<span class="normal"><a href="#__codelineno-41-5">5</a></span>
+<span class="normal"><a href="#__codelineno-41-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1"></a>$ curl -i -b cookies.txt --json @curl/doctor-duplicate.json http://localhost:8080/api/doctors
+<a id="__codelineno-41-2" name="__codelineno-41-2"></a>HTTP/1.1 409 Conflict
+<a id="__codelineno-41-3" name="__codelineno-41-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-41-4" name="__codelineno-41-4"></a>Content-Length: 151
+<a id="__codelineno-41-5" name="__codelineno-41-5"></a>
+<a id="__codelineno-41-6" name="__codelineno-41-6"></a>{"statusCode": 409, "key": "ERRORS.DOCTOR_ALREADY_EXISTS", "fields": {"firstName": "ERRORS.DOCTOR_ALREADY_EXISTS", "lastName": "ERRORS.DOCTOR_ALREADY_EXISTS"}}
+</code></pre></div></td></tr></table></div>
+<p>Uma alteração. A <strong><em>[version]</em></strong> é a lida na ficha de dados (aqui, 1):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-42-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mme"</span><span class="p">,</span><span class="w"> </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Claire"</span><span class="p">,</span><span class="w"> </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LEROY-MARTIN"</span><span class="p">,</span><span class="w"> </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-43-1">1</a></span>
+<span class="normal"><a href="#__codelineno-43-2">2</a></span>
+<span class="normal"><a href="#__codelineno-43-3">3</a></span>
+<span class="normal"><a href="#__codelineno-43-4">4</a></span>
+<span class="normal"><a href="#__codelineno-43-5">5</a></span>
+<span class="normal"><a href="#__codelineno-43-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1"></a>$ curl -i -b cookies.txt -X PUT --json @curl/doctor-edit.json http://localhost:8080/api/doctors/4
+<a id="__codelineno-43-2" name="__codelineno-43-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-43-3" name="__codelineno-43-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-43-4" name="__codelineno-43-4"></a>Content-Length: 97
+<a id="__codelineno-43-5" name="__codelineno-43-5"></a>
+<a id="__codelineno-43-6" name="__codelineno-43-6"></a>{"id": 4, "version": 2, "title": "Mme", "firstName": "Claire", "lastName": "LEROY-MARTIN", "login": "leroy"}
+</code></pre></div></td></tr></table></div>
+<p>O registro agora está na versão 2. Reenviar a mesma alteração (com a versão 1) sobrescreveria um registro que foi modificado por outra pessoa nesse meio-tempo: o <strong>bloqueio otimista</strong> impede isso:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-44-1">1</a></span>
+<span class="normal"><a href="#__codelineno-44-2">2</a></span>
+<span class="normal"><a href="#__codelineno-44-3">3</a></span>
+<span class="normal"><a href="#__codelineno-44-4">4</a></span>
+<span class="normal"><a href="#__codelineno-44-5">5</a></span>
+<span class="normal"><a href="#__codelineno-44-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1"></a>$ curl -i -b cookies.txt -X PUT --json @curl/doctor-edit.json http://localhost:8080/api/doctors/4
+<a id="__codelineno-44-2" name="__codelineno-44-2"></a>HTTP/1.1 409 Conflict
+<a id="__codelineno-44-3" name="__codelineno-44-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-44-4" name="__codelineno-44-4"></a>Content-Length: 51
+<a id="__codelineno-44-5" name="__codelineno-44-5"></a>
+<a id="__codelineno-44-6" name="__codelineno-44-6"></a>{"statusCode": 409, "key": "ERRORS.CONCURRENT_UPDATE"}
+</code></pre></div></td></tr></table></div>
+<p>Um médico com consultas não pode ser excluído; os demais podem:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-45-1">1</a></span>
+<span class="normal"><a href="#__codelineno-45-2">2</a></span>
+<span class="normal"><a href="#__codelineno-45-3">3</a></span>
+<span class="normal"><a href="#__codelineno-45-4">4</a></span>
+<span class="normal"><a href="#__codelineno-45-5">5</a></span>
+<span class="normal"><a href="#__codelineno-45-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1"></a>$ curl -i -b cookies.txt -X DELETE http://localhost:8080/api/doctors/1
+<a id="__codelineno-45-2" name="__codelineno-45-2"></a>HTTP/1.1 409 Conflict
+<a id="__codelineno-45-3" name="__codelineno-45-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-45-4" name="__codelineno-45-4"></a>Content-Length: 57
+<a id="__codelineno-45-5" name="__codelineno-45-5"></a>
+<a id="__codelineno-45-6" name="__codelineno-45-6"></a>{"statusCode": 409, "key": "ERRORS.DOCTOR_HAS_APPOINTMENTS"}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-46-1">1</a></span>
+<span class="normal"><a href="#__codelineno-46-2">2</a></span>
+<span class="normal"><a href="#__codelineno-46-3">3</a></span>
+<span class="normal"><a href="#__codelineno-46-4">4</a></span>
+<span class="normal"><a href="#__codelineno-46-5">5</a></span>
+<span class="normal"><a href="#__codelineno-46-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1"></a>$ curl -i -b cookies.txt -X DELETE http://localhost:8080/api/doctors/4
+<a id="__codelineno-46-2" name="__codelineno-46-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-46-3" name="__codelineno-46-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-46-4" name="__codelineno-46-4"></a>Content-Length: 2
+<a id="__codelineno-46-5" name="__codelineno-46-5"></a>
+<a id="__codelineno-46-6" name="__codelineno-46-6"></a>{}
+</code></pre></div></td></tr></table></div>
+<h3 id="767-criacao-de-uma-conta">7.6.7. <span style="color: #1f4d78">Criação de uma conta</span></h3>
+<p>Sem o passe, é impossível:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-47-1">1</a></span>
+<span class="normal"><a href="#__codelineno-47-2">2</a></span>
+<span class="normal"><a href="#__codelineno-47-3">3</a></span>
+<span class="normal"><a href="#__codelineno-47-4">4</a></span>
+<span class="normal"><a href="#__codelineno-47-5">5</a></span>
+<span class="normal"><a href="#__codelineno-47-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1"></a>$ curl -i --json @curl/registration.json http://localhost:8080/api/register
+<a id="__codelineno-47-2" name="__codelineno-47-2"></a>HTTP/1.1 403 Forbidden
+<a id="__codelineno-47-3" name="__codelineno-47-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-47-4" name="__codelineno-47-4"></a>Content-Length: 56
+<a id="__codelineno-47-5" name="__codelineno-47-5"></a>
+<a id="__codelineno-47-6" name="__codelineno-47-6"></a>{"statusCode": 403, "key": "ERRORS.CAPTCHA_BEFORE_ACCOUNT"}
+</code></pre></div></td></tr></table></div>
+<p>Primeiro, você resolve um CAPTCHA; o servidor emite um token, válido por 15 minutos, em um cookie:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-48-1">1</a></span>
+<span class="normal"><a href="#__codelineno-48-2">2</a></span>
+<span class="normal"><a href="#__codelineno-48-3">3</a></span>
+<span class="normal"><a href="#__codelineno-48-4">4</a></span>
+<span class="normal"><a href="#__codelineno-48-5">5</a></span>
+<span class="normal"><a href="#__codelineno-48-6">6</a></span>
+<span class="normal"><a href="#__codelineno-48-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1"></a>$ curl -i -c cookies-registration.txt --json @curl/captcha-test.json http://localhost:8080/api/register/access
+<a id="__codelineno-48-2" name="__codelineno-48-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-48-3" name="__codelineno-48-3"></a>Set-Cookie: rdvmedecins_registration=06be5557-401a-4bd4-ada2-277ca48fc74d; Max-Age=900; Path=/api/register; Expires=Mon, 28 Sep 2026 11:04:12 GMT; HttpOnly; SameSite=Strict
+<a id="__codelineno-48-4" name="__codelineno-48-4"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-48-5" name="__codelineno-48-5"></a>Content-Length: 2
+<a id="__codelineno-48-6" name="__codelineno-48-6"></a>
+<a id="__codelineno-48-7" name="__codelineno-48-7"></a>{}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-49-1">1</a></span>
+<span class="normal"><a href="#__codelineno-49-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1"></a>$ curl -s -b cookies-registration.txt http://localhost:8080/api/register/access
+<a id="__codelineno-49-2" name="__codelineno-49-2"></a>{"valid": true}
+</code></pre></div></td></tr></table></div>
+<p>A confirmação da senha deve ser idêntica:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-50-1">1</a></span>
+<span class="normal"><a href="#__codelineno-50-2">2</a></span>
+<span class="normal"><a href="#__codelineno-50-3">3</a></span>
+<span class="normal"><a href="#__codelineno-50-4">4</a></span>
+<span class="normal"><a href="#__codelineno-50-5">5</a></span>
+<span class="normal"><a href="#__codelineno-50-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1"></a>$ curl -i -b cookies-registration.txt --json @curl/registration-confirmation.json http://localhost:8080/api/register
+<a id="__codelineno-50-2" name="__codelineno-50-2"></a>HTTP/1.1 400 Bad Request
+<a id="__codelineno-50-3" name="__codelineno-50-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-50-4" name="__codelineno-50-4"></a>Content-Length: 98
+<a id="__codelineno-50-5" name="__codelineno-50-5"></a>
+<a id="__codelineno-50-6" name="__codelineno-50-6"></a>{"statusCode": 400, "key": "ERRORS.INVALID_FORM", "fields": {"confirmation": "ERRORS.PASSWORDS_DIFFER"}}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-51-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mme"</span><span class="p">,</span><span class="w"> </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Julie"</span><span class="p">,</span><span class="w"> </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BERNARD"</span><span class="p">,</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jbernard"</span><span class="p">,</span><span class="w"> </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret1"</span><span class="p">,</span><span class="w"> </span><span class="nt">"confirmation"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret1"</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-52-1">1</a></span>
+<span class="normal"><a href="#__codelineno-52-2">2</a></span>
+<span class="normal"><a href="#__codelineno-52-3">3</a></span>
+<span class="normal"><a href="#__codelineno-52-4">4</a></span>
+<span class="normal"><a href="#__codelineno-52-5">5</a></span>
+<span class="normal"><a href="#__codelineno-52-6">6</a></span>
+<span class="normal"><a href="#__codelineno-52-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1"></a>$ curl -i -b cookies-registration.txt -c cookies-registration.txt --json @curl/registration.json http://localhost:8080/api/register
+<a id="__codelineno-52-2" name="__codelineno-52-2"></a>HTTP/1.1 201 Created
+<a id="__codelineno-52-3" name="__codelineno-52-3"></a>Set-Cookie: rdvmedecins_registration=; Path=/api/register; Expires=Thu, 01 Jan 1970 00:00:00 GMT
+<a id="__codelineno-52-4" name="__codelineno-52-4"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-52-5" name="__codelineno-52-5"></a>Content-Length: 20
+<a id="__codelineno-52-6" name="__codelineno-52-6"></a>
+<a id="__codelineno-52-7" name="__codelineno-52-7"></a>{"login": "jbernard"}
+</code></pre></div></td></tr></table></div>
+<p>O passe já foi usado: ele não pode ser usado para criar uma segunda conta:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-53-1">1</a></span>
+<span class="normal"><a href="#__codelineno-53-2">2</a></span>
+<span class="normal"><a href="#__codelineno-53-3">3</a></span>
+<span class="normal"><a href="#__codelineno-53-4">4</a></span>
+<span class="normal"><a href="#__codelineno-53-5">5</a></span>
+<span class="normal"><a href="#__codelineno-53-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1"></a>$ curl -i -b cookies-registration.txt --json @curl/registration.json http://localhost:8080/api/register
+<a id="__codelineno-53-2" name="__codelineno-53-2"></a>HTTP/1.1 403 Forbidden
+<a id="__codelineno-53-3" name="__codelineno-53-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-53-4" name="__codelineno-53-4"></a>Content-Length: 56
+<a id="__codelineno-53-5" name="__codelineno-53-5"></a>
+<a id="__codelineno-53-6" name="__codelineno-53-6"></a>{"statusCode": 403, "key": "ERRORS.CAPTCHA_BEFORE_ACCOUNT"}
+</code></pre></div></td></tr></table></div>
+<h3 id="768-gerenciar-sua-conta">7.6.8. <span style="color: #1f4d78">Gerenciar sua conta</span></h3>
+<p>A nova paciente faz login e lê sua ficha:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-54-1">1</a></span>
+<span class="normal"><a href="#__codelineno-54-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-54-1" name="__codelineno-54-1"></a>$ curl -s -b cookies-jbernard.txt http://localhost:8080/api/my-account
+<a id="__codelineno-54-2" name="__codelineno-54-2"></a>{"title": "Mme", "firstName": "Julie", "lastName": "BERNARD", "login": "jbernard", "version": 1}
+</code></pre></div></td></tr></table></div>
+<p>Fazer uma alteração exige a senha atual. O servidor emite um novo token, que contém o novo nome:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-55-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1"></a><span class="p">{</span><span class="w"> </span><span class="nt">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Mme"</span><span class="p">,</span><span class="w"> </span><span class="nt">"firstName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Julie"</span><span class="p">,</span><span class="w"> </span><span class="nt">"lastName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BERNARD-DUVAL"</span><span class="p">,</span><span class="w"> </span><span class="nt">"login"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jbernard"</span><span class="p">,</span><span class="w"> </span><span class="nt">"currentPassword"</span><span class="p">:</span><span class="w"> </span><span class="s2">"secret1"</span><span class="p">,</span><span class="w"> </span><span class="nt">"version"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-56-1">1</a></span>
+<span class="normal"><a href="#__codelineno-56-2">2</a></span>
+<span class="normal"><a href="#__codelineno-56-3">3</a></span>
+<span class="normal"><a href="#__codelineno-56-4">4</a></span>
+<span class="normal"><a href="#__codelineno-56-5">5</a></span>
+<span class="normal"><a href="#__codelineno-56-6">6</a></span>
+<span class="normal"><a href="#__codelineno-56-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-56-1" name="__codelineno-56-1"></a>$ curl -i -b cookies-jbernard.txt -c cookies-jbernard.txt -X PUT --json @curl/my-account.json http://localhost:8080/api/my-account
+<a id="__codelineno-56-2" name="__codelineno-56-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-56-3" name="__codelineno-56-3"></a>Set-Cookie: rdvmedecins_jwt=eyJhbGciOiJIUzI1NiIs...; Max-Age=7200; Path=/api; Expires=Mon, 28 Sep 2026 12:49:13 GMT; HttpOnly; SameSite=Strict
+<a id="__codelineno-56-4" name="__codelineno-56-4"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-56-5" name="__codelineno-56-5"></a>Content-Length: 63
+<a id="__codelineno-56-6" name="__codelineno-56-6"></a>
+<a id="__codelineno-56-7" name="__codelineno-56-7"></a>{"login": "jbernard", "name": "Julie BERNARD-DUVAL", "role": "USER"}
+</code></pre></div></td></tr></table></div>
+<p>Excluir a conta também apaga o cookie:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-57-1">1</a></span>
+<span class="normal"><a href="#__codelineno-57-2">2</a></span>
+<span class="normal"><a href="#__codelineno-57-3">3</a></span>
+<span class="normal"><a href="#__codelineno-57-4">4</a></span>
+<span class="normal"><a href="#__codelineno-57-5">5</a></span>
+<span class="normal"><a href="#__codelineno-57-6">6</a></span>
+<span class="normal"><a href="#__codelineno-57-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-57-1" name="__codelineno-57-1"></a>$ curl -i -b cookies-jbernard.txt -c cookies-jbernard.txt -X DELETE --json @curl/my-account-delete.json http://localhost:8080/api/my-account
+<a id="__codelineno-57-2" name="__codelineno-57-2"></a>HTTP/1.1 200 OK
+<a id="__codelineno-57-3" name="__codelineno-57-3"></a>Set-Cookie: rdvmedecins_jwt=; Path=/api; Expires=Thu, 01 Jan 1970 00:00:00 GMT
+<a id="__codelineno-57-4" name="__codelineno-57-4"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-57-5" name="__codelineno-57-5"></a>Content-Length: 2
+<a id="__codelineno-57-6" name="__codelineno-57-6"></a>
+<a id="__codelineno-57-7" name="__codelineno-57-7"></a>{}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-58-1">1</a></span>
+<span class="normal"><a href="#__codelineno-58-2">2</a></span>
+<span class="normal"><a href="#__codelineno-58-3">3</a></span>
+<span class="normal"><a href="#__codelineno-58-4">4</a></span>
+<span class="normal"><a href="#__codelineno-58-5">5</a></span>
+<span class="normal"><a href="#__codelineno-58-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-58-1" name="__codelineno-58-1"></a>$ curl -i -b cookies-jbernard.txt http://localhost:8080/api/auth/me
+<a id="__codelineno-58-2" name="__codelineno-58-2"></a>HTTP/1.1 401 Unauthorized
+<a id="__codelineno-58-3" name="__codelineno-58-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-58-4" name="__codelineno-58-4"></a>Content-Length: 47
+<a id="__codelineno-58-5" name="__codelineno-58-5"></a>
+<a id="__codelineno-58-6" name="__codelineno-58-6"></a>{"statusCode": 401, "key": "ERRORS.AUTH_REQUIRED"}
+</code></pre></div></td></tr></table></div>
+<h3 id="769-alguns-erros">7.6.9. <span style="color: #1f4d78">Alguns erros</span></h3>
+<p>Uma rota desconhecida, um corpo que não é um JSON válido:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-59-1">1</a></span>
+<span class="normal"><a href="#__codelineno-59-2">2</a></span>
+<span class="normal"><a href="#__codelineno-59-3">3</a></span>
+<span class="normal"><a href="#__codelineno-59-4">4</a></span>
+<span class="normal"><a href="#__codelineno-59-5">5</a></span>
+<span class="normal"><a href="#__codelineno-59-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-59-1" name="__codelineno-59-1"></a>$ curl -i -b cookies-martin.txt http://localhost:8080/api/does-not-exist
+<a id="__codelineno-59-2" name="__codelineno-59-2"></a>HTTP/1.1 404 Not Found
+<a id="__codelineno-59-3" name="__codelineno-59-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-59-4" name="__codelineno-59-4"></a>Content-Length: 43
+<a id="__codelineno-59-5" name="__codelineno-59-5"></a>
+<a id="__codelineno-59-6" name="__codelineno-59-6"></a>{"statusCode": 404, "key": "ERRORS.NOT_FOUND"}
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-60-1">1</a></span>
+<span class="normal"><a href="#__codelineno-60-2">2</a></span>
+<span class="normal"><a href="#__codelineno-60-3">3</a></span>
+<span class="normal"><a href="#__codelineno-60-4">4</a></span>
+<span class="normal"><a href="#__codelineno-60-5">5</a></span>
+<span class="normal"><a href="#__codelineno-60-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-60-1" name="__codelineno-60-1"></a>$ curl -i -b cookies.txt -H "Content-Type: application/json" -d "{not json" http://localhost:8080/api/appointments
+<a id="__codelineno-60-2" name="__codelineno-60-2"></a>HTTP/1.1 400 Bad Request
+<a id="__codelineno-60-3" name="__codelineno-60-3"></a>Content-Type: application/json; charset=utf-8
+<a id="__codelineno-60-4" name="__codelineno-60-4"></a>Content-Length: 45
+<a id="__codelineno-60-5" name="__codelineno-60-5"></a>
+<a id="__codelineno-60-6" name="__codelineno-60-6"></a>{"statusCode": 400, "key": "ERRORS.BAD_REQUEST"}
+</code></pre></div></td></tr></table></div>
+<p>Agora sabemos tudo o que precisamos saber sobre o servidor para escrever o nosso cliente.</p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Este tutorial, escrito pela IA <strong>Claude</strong>, da Anthropic, a pedido de <strong>Serge Tahé</strong>, é disponibilizado ao público sob os termos da licença
+        <em>Creative Commons Atribuição – Uso Não Comercial –
+        Compartilha Igual 3.0 Não Adaptada</em>.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>

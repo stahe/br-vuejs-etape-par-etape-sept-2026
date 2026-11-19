@@ -1,0 +1,1199 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Introdução passo a passo ao framework web [Vue.js]">
+      
+      
+        <meta name="author" content="Serge Tahé">
+      
+      
+        <link rel="canonical" href="https://stahe.github.io/br-vuejs-etape-par-etape-sept-2026/estado-compartilhado.html">
+      
+      
+        <link rel="prev" href="roteamento.html">
+      
+      
+        <link rel="next" href="internacionalizacao.html">
+      
+      
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>5. Estado compartilhado - Introdução passo a passo ao framework web [Vue.js]</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/focus.css">
+    
+      <link rel="stylesheet" href="stylesheets/bidi.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EBZC3JVJNR"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    var siteName = "Introdução passo a passo ao framework web [Vue.js]";
+    gtag('config', 'G-EBZC3JVJNR', {
+        'page_title': siteName
+    });
+  </script>
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5-estado-compartilhado" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Introdução passo a passo ao framework web [Vue.js]" class="md-header__button md-logo" aria-label="Introdução passo a passo ao framework web [Vue.js]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Introdução passo a passo ao framework web [Vue.js]
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. Estado compartilhado
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Alternar para o modo escuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Alternar para o modo escuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="purple"  aria-label="Alternar para o modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Alternar para o modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://stahe.github.io/br-vuejs-etape-par-etape-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Introdução passo a passo ao framework web [Vue.js]" class="md-nav__button md-logo" aria-label="Introdução passo a passo ao framework web [Vue.js]" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Introdução passo a passo ao framework web [Vue.js]
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://stahe.github.io/br-vuejs-etape-par-etape-sept-2026" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Bem-vindo
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="introducao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Introdução
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="primeiros-passos-com-o-vuejs.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. Primeiros passos com o Vue.js
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="os-componentes.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Os componentes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="roteamento.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Roteamento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Estado compartilhado
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="estado-compartilhado.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. Estado compartilhado
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-exemplo-15-estado-compartilhado-com-pinia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1. Exemplo 15: Estado compartilhado com Pinia
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="internacionalizacao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. Internacionalização
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="o-servidor-rdvmedecins-uma-caixa-preta.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. O servidor RdvMedecins, uma caixa-preta
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="comunicacao-com-o-servidor.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. Comunicação com o servidor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusao-intermediaria.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Conclusão intermediária
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="estudo-de-caso-o-cliente-vuejs-da-aplicacao-rdvmedecins.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    10. Estudo de caso: o cliente Vue.js da aplicação RdvMedecins
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="implantacao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    11. Implantação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="conclusao.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    12. Conclusão
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="apendices.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    13. Apêndices
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="5-estado-compartilhado">5. <span style="color: #2e74b5">Estado compartilhado</span></h1>
+<h2 id="51-exemplo-15-estado-compartilhado-com-pinia">5.1. <span style="color: #2e74b5">Exemplo 15: Estado compartilhado com Pinia</span></h2>
+<p>Em uma aplicação, certos dados interessam a muitos componentes: o usuário logado, o carrinho de compras etc. O Exemplo 11 compartilhava esses dados com <strong><em>[provide]</em></strong> / <strong><em>[inject]</em></strong>, enquanto o Exemplo 14 usava um módulo com <strong><em>[ref]</em></strong> . <em>[Pinia]</em>, a biblioteca oficial do <em>[Vue.js]</em>  para estado compartilhado, organiza isso em <strong>stores</strong> e as torna visíveis na extensão <em>[Vue.js devtools]</em>.</p>
+<p>Ela é instalada em <strong><em>[main.ts]</em></strong>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="c1">// 15-pinia/src/main.ts</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="c1">// app.use(createPinia()): o Pinia é instalado, a biblioteca oficial do Vue.js</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1">// para o gerenciamento de estado COMPARTILHADO. Os "stores" definidos</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="c1">// a seguir são acessíveis de qualquer componente.</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createApp</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span><span class="p">;</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">createPinia</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'pinia'</span><span class="p">;</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">import</span><span class="w"> </span><span class="s1">'bootstrap/dist/css/bootstrap.min.css'</span><span class="p">;</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">import</span><span class="w"> </span><span class="nx">App</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./App.vue'</span><span class="p">;</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="nx">createApp</span><span class="p">(</span><span class="nx">App</span><span class="p">).</span><span class="nx">use</span><span class="p">(</span><span class="nx">createPinia</span><span class="p">()).</span><span class="nx">mount</span><span class="p">(</span><span class="s1">'#app'</span><span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>A primeira store, o carrinho de compras:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span>
+<span class="normal"><a href="#__codelineno-1-31">31</a></span>
+<span class="normal"><a href="#__codelineno-1-32">32</a></span>
+<span class="normal"><a href="#__codelineno-1-33">33</a></span>
+<span class="normal"><a href="#__codelineno-1-34">34</a></span>
+<span class="normal"><a href="#__codelineno-1-35">35</a></span>
+<span class="normal"><a href="#__codelineno-1-36">36</a></span>
+<span class="normal"><a href="#__codelineno-1-37">37</a></span>
+<span class="normal"><a href="#__codelineno-1-38">38</a></span>
+<span class="normal"><a href="#__codelineno-1-39">39</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="c1">// 15-pinia/src/stores/cart.ts - um STORE do Pinia</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="c1">// defineStore('cart', () =&gt; { ... }): um store escrito como um composable</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1">// (estilo "setup"):</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="c1">//   - os refs são o ESTADO do store;</span>
+<a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="c1">//   - os valores computed, seus GETTERS (valores calculados);</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="c1">//   - as funções, suas ACTIONS (o que modifica o estado).</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="c1">// Diferença em relação a um composable (exemplo 11): o store existe em apenas UMA</span>
+<a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="c1">// cópia para toda a aplicação. Todos os componentes que chamam</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="c1">// useCartStore() recebem o MESMO carrinho. Ele vive enquanto a aplicação</span>
+<a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="c1">// viver: sobrevive à remoção de um componente... mas não ao recarregamento</span>
+<a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="c1">// da página (F5), que reinicia a aplicação.</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-1-15" name="__codelineno-1-15"></a>
+<a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">computed</span><span class="p">,</span><span class="w"> </span><span class="nx">ref</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span><span class="p">;</span>
+<a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineStore</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'pinia'</span><span class="p">;</span>
+<a id="__codelineno-1-18" name="__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="k">export</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="nx">Item</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="w">  </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="w">  </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span>
+<a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="p">}</span>
+<a id="__codelineno-1-23" name="__codelineno-1-23"></a>
+<a id="__codelineno-1-24" name="__codelineno-1-24"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">useCartStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">defineStore</span><span class="p">(</span><span class="s1">'cart'</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">items</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ref</span><span class="o">&lt;</span><span class="nx">Item</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]);</span>
+<a id="__codelineno-1-26" name="__codelineno-1-26"></a>
+<a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">computed</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">items</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+<a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">computed</span><span class="p">(()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">items</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">reduce</span><span class="p">((</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">a</span><span class="p">.</span><span class="nx">price</span><span class="p">,</span><span class="w"> </span><span class="mf">0</span><span class="p">));</span>
+<a id="__codelineno-1-29" name="__codelineno-1-29"></a>
+<a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">add</span><span class="p">(</span><span class="nx">item</span><span class="o">:</span><span class="w"> </span><span class="kt">Item</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="w">    </span><span class="nx">items</span><span class="p">.</span><span class="nx">value</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+<a id="__codelineno-1-32" name="__codelineno-1-32"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-1-33" name="__codelineno-1-33"></a><span class="w">  </span><span class="kd">function</span><span class="w"> </span><span class="nx">clear</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="ow">void</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-1-34" name="__codelineno-1-34"></a><span class="w">    </span><span class="nx">items</span><span class="p">.</span><span class="nx">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[];</span>
+<a id="__codelineno-1-35" name="__codelineno-1-35"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-1-36" name="__codelineno-1-36"></a>
+<a id="__codelineno-1-37" name="__codelineno-1-37"></a><span class="w">  </span><span class="c1">// tudo o que é retornado faz parte do store</span>
+<a id="__codelineno-1-38" name="__codelineno-1-38"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">items</span><span class="p">,</span><span class="w"> </span><span class="nx">count</span><span class="p">,</span><span class="w"> </span><span class="nx">total</span><span class="p">,</span><span class="w"> </span><span class="nx">add</span><span class="p">,</span><span class="w"> </span><span class="nx">clear</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-1-39" name="__codelineno-1-39"></a><span class="p">});</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>linhas 24–39: <strong><em>[defineStore(name, function)]</em></strong> define uma store no estilo “setup”, como um composable: os <strong><em>[ref]</em></strong> são seu <strong>estado</strong>, os <strong><em>[computed] são</em></strong> seus <strong>getters</strong>, e as funções são suas <strong>ações</strong>; ela expõe o que a função retorna;</li>
+<li>A diferença em relação a um composable: há apenas <strong>uma</strong> instância da store para toda a aplicação. Todos os componentes que chamam <strong><em>[useCartStore()]</em></strong> recebem o MESMO carrinho de compras. Ela vive enquanto a aplicação viver: sobrevive à remoção de um componente... mas não ao recarregamento da página (F5), que reinicia a aplicação.</li>
+</ul>
+<p>Uma segunda store, porém, sobrevive ao recarregamento da página:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span>
+<span class="normal"><a href="#__codelineno-2-30">30</a></span>
+<span class="normal"><a href="#__codelineno-2-31">31</a></span>
+<span class="normal"><a href="#__codelineno-2-32">32</a></span>
+<span class="normal"><a href="#__codelineno-2-33">33</a></span>
+<span class="normal"><a href="#__codelineno-2-34">34</a></span>
+<span class="normal"><a href="#__codelineno-2-35">35</a></span>
+<span class="normal"><a href="#__codelineno-2-36">36</a></span>
+<span class="normal"><a href="#__codelineno-2-37">37</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="c1">// 15-pinia/src/stores/preferences.ts - um store que sobrevive ao F5</span>
+<a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="c1">// -------------------------------------------------------------------------</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="c1">// Para que um dado sobreviva ao recarregamento da página, ou ao fechamento</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1">// do navegador, ele deve ser armazenado NO navegador: localStorage (um</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="c1">// pequeno dicionário chave -&gt; string, específico de cada site).</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="c1">//   - na inicialização, o store lê o localStorage novamente;</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="c1">//   - watch(..., { deep: true }) reescreve o localStorage a cada mudança.</span>
+<a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="c1">// NUNCA armazene dados sensíveis ali (senha, token): qualquer script</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="c1">// da página pode ler o localStorage.</span>
+<a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="c1">// =========================================================================</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12"></a>
+<a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ref</span><span class="p">,</span><span class="w"> </span><span class="nx">watch</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span><span class="p">;</span>
+<a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">defineStore</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'pinia'</span><span class="p">;</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="kd">const</span><span class="w"> </span><span class="nx">KEY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">'example15.preferences'</span><span class="p">;</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="kd">interface</span><span class="w"> </span><span class="nx">Preferences</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">  </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span>
+<a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">  </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="kt">number</span><span class="p">;</span><span class="w"> </span><span class="c1">// tamanho do texto, em px</span>
+<a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="p">}</span>
+<a id="__codelineno-2-22" name="__codelineno-2-22"></a>
+<a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="kd">function</span><span class="w"> </span><span class="nx">read</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="nx">Preferences</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="w">  </span><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span><span class="w"> </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="kt">16</span><span class="p">,</span><span class="w"> </span><span class="p">...</span><span class="nb">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="nx">KEY</span><span class="p">)</span><span class="w"> </span><span class="o">??</span><span class="w"> </span><span class="s1">'{}'</span><span class="p">)</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="w">  </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">dark</span><span class="o">:</span><span class="w"> </span><span class="kt">false</span><span class="p">,</span><span class="w"> </span><span class="nx">size</span><span class="o">:</span><span class="w"> </span><span class="kt">16</span><span class="w"> </span><span class="p">};</span><span class="w"> </span><span class="c1">// conteúdo ilegível: valores padrão</span>
+<a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="w">  </span><span class="p">}</span>
+<a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="p">}</span>
+<a id="__codelineno-2-30" name="__codelineno-2-30"></a>
+<a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="k">export</span><span class="w"> </span><span class="kd">const</span><span class="w"> </span><span class="nx">usePreferencesStore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">defineStore</span><span class="p">(</span><span class="s1">'preferences'</span><span class="p">,</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p">{</span>
+<a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="w">  </span><span class="kd">const</span><span class="w"> </span><span class="nx">preferences</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ref</span><span class="o">&lt;</span><span class="nx">Preferences</span><span class="o">&gt;</span><span class="p">(</span><span class="nx">read</span><span class="p">());</span>
+<a id="__codelineno-2-33" name="__codelineno-2-33"></a>
+<a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="w">  </span><span class="nx">watch</span><span class="p">(</span><span class="nx">preferences</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="nx">p</span><span class="p">)</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="nx">KEY</span><span class="p">,</span><span class="w"> </span><span class="nb">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">p</span><span class="p">)),</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">deep</span><span class="o">:</span><span class="w"> </span><span class="kt">true</span><span class="w"> </span><span class="p">});</span>
+<a id="__codelineno-2-35" name="__codelineno-2-35"></a>
+<a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">preferences</span><span class="w"> </span><span class="p">};</span>
+<a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="p">});</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Linhas 23–29: na inicialização, o navegador relê o <strong><em>[localStorage]</em></strong>, um pequeno dicionário chave/valor que o navegador armazena para cada site, mesmo depois de fechado. Se o conteúdo for ilegível, os valores padrão são usados;</li>
+<li>Linha 34: <strong><em>[{ deep: true }]</em></strong>: o <strong><em>[watch]</em></strong> também reage às mudanças nas propriedades do objeto. Cada mudança é regravada no <strong><em>[localStorage]</em></strong>.</li>
+</ul>
+<p>NUNCA armazene dados sensíveis (senhas, tokens) no [localStorage]: qualquer script executado na página pode ler o <strong><em>[localStorage]</em></strong>.</p>
+<p>Os componentes:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c">&lt;!--</span><span class="w"> </span><span class="mf">15</span><span class="o">-</span><span class="nx">pinia</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">components</span><span class="o">/</span><span class="nx">Shop</span><span class="p">.</span><span class="nx">vue</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">ADICIONA</span><span class="w"> </span><span class="nx">ao</span><span class="w"> </span><span class="nx">carrinho</span><span class="w"> </span><span class="nx">compartilhado</span><span class="w"> </span><span class="o">--&gt;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="o">&lt;</span><span class="nx">script</span><span class="w"> </span><span class="nx">setup</span><span class="w"> </span><span class="nx">lang</span><span class="o">=</span><span class="s2">"ts"</span><span class="o">&gt;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useCartStore</span><span class="p">,</span><span class="w"> </span><span class="kr">type</span><span class="w"> </span><span class="nx">Item</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../stores/cart'</span><span class="p">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">cart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCartStore</span><span class="p">();</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="kd">const</span><span class="w"> </span><span class="nx">products</span><span class="o">:</span><span class="w"> </span><span class="kt">Item</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'Consultation'</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">30</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">  </span><span class="p">{</span><span class="w"> </span><span class="nx">label</span><span class="o">:</span><span class="w"> </span><span class="s1">'Vaccine'</span><span class="p">,</span><span class="w"> </span><span class="nx">price</span><span class="o">:</span><span class="w"> </span><span class="kt">12.5</span><span class="w"> </span><span class="p">},</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">];</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="o">&lt;</span><span class="err">/script&gt;</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11"></a>
+<a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+<a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"card p-3 h-100"</span><span class="o">&gt;</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">Shop</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="nx">v</span><span class="o">-</span><span class="k">for</span><span class="o">=</span><span class="s2">"p in products"</span><span class="w"> </span><span class="o">:</span><span class="nx">key</span><span class="o">=</span><span class="s2">"p.label"</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"btn btn-sm btn-outline-primary mb-2"</span><span class="w"> </span><span class="kd">@click</span><span class="o">=</span><span class="s2">"cart.add(p)"</span><span class="o">&gt;</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">      </span><span class="o">+</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">label</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="p">(</span><span class="err">€</span><span class="p">{{</span><span class="w"> </span><span class="nx">p</span><span class="p">.</span><span class="nx">price</span><span class="w"> </span><span class="p">}})</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">    </span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">  </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="o">&lt;</span><span class="err">/template&gt;</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Linha 5: a store é usada como um objeto reativo: <strong><em>[cart.add(p)]</em></strong>;</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span>
+<span class="normal"><a href="#__codelineno-4-11">11</a></span>
+<span class="normal"><a href="#__codelineno-4-12">12</a></span>
+<span class="normal"><a href="#__codelineno-4-13">13</a></span>
+<span class="normal"><a href="#__codelineno-4-14">14</a></span>
+<span class="normal"><a href="#__codelineno-4-15">15</a></span>
+<span class="normal"><a href="#__codelineno-4-16">16</a></span>
+<span class="normal"><a href="#__codelineno-4-17">17</a></span>
+<span class="normal"><a href="#__codelineno-4-18">18</a></span>
+<span class="normal"><a href="#__codelineno-4-19">19</a></span>
+<span class="normal"><a href="#__codelineno-4-20">20</a></span>
+<span class="normal"><a href="#__codelineno-4-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="c">&lt;!--</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">  </span><span class="mf">15</span><span class="o">-</span><span class="nx">pinia</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">components</span><span class="o">/</span><span class="nx">CartSummary</span><span class="p">.</span><span class="nx">vue</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">READS</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">same</span><span class="w"> </span><span class="nx">cart</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">  </span><span class="nx">storeToRefs</span><span class="o">:</span><span class="w"> </span><span class="kt">to</span><span class="w"> </span><span class="nx">DESTRUCTURE</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">store</span><span class="w"> </span><span class="nx">without</span><span class="w"> </span><span class="nx">losing</span><span class="w"> </span><span class="nx">reactivity</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">  </span><span class="p">(</span><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">cart</span><span class="w"> </span><span class="nx">would</span><span class="w"> </span><span class="nx">give</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">simple</span><span class="p">,</span><span class="w"> </span><span class="nx">frozen</span><span class="w"> </span><span class="nx">copy</span><span class="p">).</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="o">--&gt;</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="o">&lt;</span><span class="nx">script</span><span class="w"> </span><span class="nx">setup</span><span class="w"> </span><span class="nx">lang</span><span class="o">=</span><span class="s2">"ts"</span><span class="o">&gt;</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">storeToRefs</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'pinia'</span><span class="p">;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">useCartStore</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'../stores/cart'</span><span class="p">;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9"></a>
+<a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="kd">const</span><span class="w"> </span><span class="nx">cart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">useCartStore</span><span class="p">();</span>
+<a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="kd">const</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">count</span><span class="p">,</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">storeToRefs</span><span class="p">(</span><span class="nx">cart</span><span class="p">);</span>
+<a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="o">&lt;</span><span class="err">/script&gt;</span>
+<a id="__codelineno-4-13" name="__codelineno-4-13"></a>
+<a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+<a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"card p-3 h-100"</span><span class="o">&gt;</span>
+<a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">Cart</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"mb-2"</span><span class="o">&gt;</span><span class="p">{{</span><span class="w"> </span><span class="nx">count</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="nx">item</span><span class="p">(</span><span class="nx">s</span><span class="p">),</span><span class="w"> </span><span class="err">€</span><span class="p">{{</span><span class="w"> </span><span class="nx">total</span><span class="w"> </span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/p&gt;</span>
+<a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">    </span><span class="c">&lt;!--</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">actions</span><span class="p">,</span><span class="w"> </span><span class="nx">por</span><span class="w"> </span><span class="nx">sua</span><span class="w"> </span><span class="nx">vez</span><span class="p">,</span><span class="w"> </span><span class="nx">podem</span><span class="w"> </span><span class="nx">ser</span><span class="w"> </span><span class="nx">desestruturadas</span><span class="w"> </span><span class="nx">ou</span><span class="w"> </span><span class="nx">chamadas</span><span class="w"> </span><span class="nx">diretamente</span><span class="w"> </span><span class="o">--&gt;</span>
+<a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"btn btn-sm btn-outline-danger align-self-start"</span><span class="w"> </span><span class="o">:</span><span class="nx">disabled</span><span class="o">=</span><span class="s2">"count === 0"</span><span class="w"> </span><span class="kd">@click</span><span class="o">=</span><span class="s2">"cart.clear()"</span><span class="o">&gt;</span><span class="nx">Clear</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">  </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="o">&lt;</span><span class="err">/template&gt;</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>linha 11: para desestruturar uma store sem perder a reatividade. <strong><em>[const { count } = cart]</em></strong> retornaria uma simples cópia, congelada no valor atual; <strong><em>[storeToRefs]</em></strong> retorna instâncias de <strong><em>[ref]</em></strong> ligadas à store. As ações, por outro lado, podem ser desestruturadas ou chamadas diretamente.</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c">&lt;!--</span><span class="w"> </span><span class="mf">15</span><span class="o">-</span><span class="nx">pinia</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">components</span><span class="o">/</span><span class="nx">LocalCounter</span><span class="p">.</span><span class="nx">vue</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">um</span><span class="w"> </span><span class="nx">estado</span><span class="w"> </span><span class="nx">LOCAL</span><span class="p">,</span><span class="w"> </span><span class="nx">que</span><span class="w"> </span><span class="nx">desaparece</span><span class="w"> </span><span class="nx">com</span><span class="w"> </span><span class="nx">o</span><span class="w"> </span><span class="nx">componente</span><span class="w"> </span><span class="o">--&gt;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="o">&lt;</span><span class="nx">script</span><span class="w"> </span><span class="nx">setup</span><span class="w"> </span><span class="nx">lang</span><span class="o">=</span><span class="s2">"ts"</span><span class="o">&gt;</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ref</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="kd">const</span><span class="w"> </span><span class="nx">clicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ref</span><span class="p">(</span><span class="mf">0</span><span class="p">);</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="o">&lt;</span><span class="err">/script&gt;</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6"></a>
+<a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"card p-3 h-100"</span><span class="o">&gt;</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">h2</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"h6"</span><span class="o">&gt;</span><span class="nx">Local</span><span class="w"> </span><span class="nx">state</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">button</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"btn btn-sm btn-outline-secondary align-self-start"</span><span class="w"> </span><span class="kd">@click</span><span class="o">=</span><span class="s2">"clicks++"</span><span class="o">&gt;</span><span class="p">{{</span><span class="w"> </span><span class="nx">clicks</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="nx">click</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">  </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="o">&lt;</span><span class="err">/template&gt;</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-6-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-6-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-6-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-6-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-6-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-6-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-6-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-6-10">10</a></span>
+<span class="normal"><a href="#__codelineno-6-11">11</a></span>
+<span class="normal"><a href="#__codelineno-6-12">12</a></span>
+<span class="normal"><a href="#__codelineno-6-13">13</a></span>
+<span class="normal"><a href="#__codelineno-6-14">14</a></span>
+<span class="normal"><a href="#__codelineno-6-15">15</a></span>
+<span class="normal"><a href="#__codelineno-6-16">16</a></span>
+<span class="normal"><a href="#__codelineno-6-17">17</a></span>
+<span class="normal"><a href="#__codelineno-6-18">18</a></span>
+<span class="normal"><a href="#__codelineno-6-19">19</a></span>
+<span class="normal"><a href="#__codelineno-6-20">20</a></span>
+<span class="normal"><a href="#__codelineno-6-21">21</a></span>
+<span class="normal"><a href="#__codelineno-6-22">22</a></span>
+<span class="normal"><a href="#__codelineno-6-23">23</a></span>
+<span class="normal"><a href="#__codelineno-6-24">24</a></span>
+<span class="normal"><a href="#__codelineno-6-25">25</a></span>
+<span class="normal"><a href="#__codelineno-6-26">26</a></span>
+<span class="normal"><a href="#__codelineno-6-27">27</a></span>
+<span class="normal"><a href="#__codelineno-6-28">28</a></span>
+<span class="normal"><a href="#__codelineno-6-29">29</a></span>
+<span class="normal"><a href="#__codelineno-6-30">30</a></span>
+<span class="normal"><a href="#__codelineno-6-31">31</a></span>
+<span class="normal"><a href="#__codelineno-6-32">32</a></span>
+<span class="normal"><a href="#__codelineno-6-33">33</a></span>
+<span class="normal"><a href="#__codelineno-6-34">34</a></span>
+<span class="normal"><a href="#__codelineno-6-35">35</a></span>
+<span class="normal"><a href="#__codelineno-6-36">36</a></span>
+<span class="normal"><a href="#__codelineno-6-37">37</a></span>
+<span class="normal"><a href="#__codelineno-6-38">38</a></span>
+<span class="normal"><a href="#__codelineno-6-39">39</a></span>
+<span class="normal"><a href="#__codelineno-6-40">40</a></span>
+<span class="normal"><a href="#__codelineno-6-41">41</a></span>
+<span class="normal"><a href="#__codelineno-6-42">42</a></span>
+<span class="normal"><a href="#__codelineno-6-43">43</a></span>
+<span class="normal"><a href="#__codelineno-6-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="c">&lt;!--</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">  </span><span class="o">=========================================================================</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">  </span><span class="mf">15</span><span class="o">-</span><span class="nx">pinia</span><span class="o">/</span><span class="nx">src</span><span class="o">/</span><span class="nx">App</span><span class="p">.</span><span class="nx">vue</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">three</span><span class="w"> </span><span class="s2">"scopes"</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">data</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="nx">side</span>
+<a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">  </span><span class="o">-------------------------------------------------------------------------</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">  </span><span class="nx">Same</span><span class="w"> </span><span class="nx">question</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nx">example</span><span class="w"> </span><span class="mf">23</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">NestJS</span><span class="w"> </span><span class="nx">course</span><span class="w"> </span><span class="p">(</span><span class="nx">application</span><span class="p">,</span>
+<a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">  </span><span class="nx">request</span><span class="p">,</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="nx">scope</span><span class="p">),</span><span class="w"> </span><span class="nx">transposed</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">browser</span><span class="o">:</span>
+<a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">LOCAL</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">component</span><span class="w"> </span><span class="p">(</span><span class="nx">LocalCounter</span><span class="p">)</span><span class="w"> </span><span class="nx">disappears</span><span class="w"> </span><span class="kd">with</span><span class="w"> </span><span class="nx">it</span><span class="p">;</span>
+<a id="__codelineno-6-8" name="__codelineno-6-8"></a><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">STORE</span><span class="w"> </span><span class="p">(</span><span class="nx">the</span><span class="w"> </span><span class="nx">cart</span><span class="p">)</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">shared</span><span class="w"> </span><span class="nx">by</span><span class="w"> </span><span class="nx">all</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">components</span><span class="w"> </span><span class="nx">and</span>
+<a id="__codelineno-6-9" name="__codelineno-6-9"></a><span class="w">      </span><span class="nx">survives</span><span class="w"> </span><span class="nx">their</span><span class="w"> </span><span class="nx">removal</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">but</span><span class="w"> </span><span class="nx">not</span><span class="w"> </span><span class="nx">F5</span><span class="p">;</span>
+<a id="__codelineno-6-10" name="__codelineno-6-10"></a><span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="nx">stored</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nx">localStorage</span><span class="w"> </span><span class="p">(</span><span class="nx">the</span><span class="w"> </span><span class="nx">preferences</span><span class="p">)</span><span class="w"> </span><span class="nx">survives</span><span class="w"> </span><span class="nx">F5</span><span class="w"> </span><span class="nx">and</span><span class="w"> </span><span class="nx">the</span>
+<a id="__codelineno-6-11" name="__codelineno-6-11"></a><span class="w">      </span><span class="nx">closing</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">browser</span><span class="p">.</span>
+<a id="__codelineno-6-12" name="__codelineno-6-12"></a><span class="w">  </span><span class="nx">Uncheck</span><span class="w"> </span><span class="nx">then</span><span class="w"> </span><span class="nx">check</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">box</span><span class="w"> </span><span class="nx">again</span><span class="p">,</span><span class="w"> </span><span class="nx">then</span><span class="w"> </span><span class="nx">reload</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">page</span><span class="o">:</span><span class="w"> </span><span class="kt">compare.</span>
+<a id="__codelineno-6-13" name="__codelineno-6-13"></a><span class="w">  </span><span class="o">=========================================================================</span>
+<a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="o">--&gt;</span>
+<a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="o">&lt;</span><span class="nx">script</span><span class="w"> </span><span class="nx">setup</span><span class="w"> </span><span class="nx">lang</span><span class="o">=</span><span class="s2">"ts"</span><span class="o">&gt;</span>
+<a id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ref</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'vue'</span><span class="p">;</span>
+<a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">usePreferencesStore</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./stores/preferences'</span><span class="p">;</span>
+<a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="k">import</span><span class="w"> </span><span class="nx">Shop</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./components/Shop.vue'</span><span class="p">;</span>
+<a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="k">import</span><span class="w"> </span><span class="nx">CartSummary</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./components/CartSummary.vue'</span><span class="p">;</span>
+<a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="k">import</span><span class="w"> </span><span class="nx">LocalCounter</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s1">'./components/LocalCounter.vue'</span><span class="p">;</span>
+<a id="__codelineno-6-21" name="__codelineno-6-21"></a>
+<a id="__codelineno-6-22" name="__codelineno-6-22"></a><span class="kd">const</span><span class="w"> </span><span class="nx">prefs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">usePreferencesStore</span><span class="p">();</span>
+<a id="__codelineno-6-23" name="__codelineno-6-23"></a><span class="kd">const</span><span class="w"> </span><span class="nx">areaVisible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">ref</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+<a id="__codelineno-6-24" name="__codelineno-6-24"></a><span class="o">&lt;</span><span class="err">/script&gt;</span>
+<a id="__codelineno-6-25" name="__codelineno-6-25"></a>
+<a id="__codelineno-6-26" name="__codelineno-6-26"></a><span class="o">&lt;</span><span class="nx">template</span><span class="o">&gt;</span>
+<a id="__codelineno-6-27" name="__codelineno-6-27"></a><span class="w">  </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="o">:</span><span class="kt">class</span><span class="o">=</span><span class="s2">"{ 'bg-dark text-light': prefs.preferences.dark }"</span><span class="w"> </span><span class="o">:</span><span class="nx">style</span><span class="o">=</span><span class="s2">"{ fontSize: prefs.preferences.size + 'px' }"</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"min-vh-100"</span><span class="o">&gt;</span>
+<a id="__codelineno-6-28" name="__codelineno-6-28"></a><span class="w">    </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"container py-4"</span><span class="o">&gt;</span>
+<a id="__codelineno-6-29" name="__codelineno-6-29"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">h1</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"h3 mb-3"</span><span class="o">&gt;</span><span class="nx">Example</span><span class="w"> </span><span class="mf">15</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">shared</span><span class="w"> </span><span class="nx">state</span><span class="w"> </span><span class="kd">with</span><span class="w"> </span><span class="nx">Pinia</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
+<a id="__codelineno-6-30" name="__codelineno-6-30"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"d-flex flex-wrap gap-4 mb-3"</span><span class="o">&gt;</span>
+<a id="__codelineno-6-31" name="__codelineno-6-31"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">label</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"form-check-label"</span><span class="o">&gt;&lt;</span><span class="nx">input</span><span class="w"> </span><span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">"prefs.preferences.dark"</span><span class="w"> </span><span class="kr">type</span><span class="o">=</span><span class="s2">"checkbox"</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"form-check-input"</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">dark</span><span class="w"> </span><span class="nx">theme</span><span class="o">&lt;</span><span class="err">/label&gt;</span>
+<a id="__codelineno-6-32" name="__codelineno-6-32"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">label</span><span class="o">&gt;</span><span class="nx">text</span><span class="w"> </span><span class="nx">size</span><span class="w"> </span><span class="o">&lt;</span><span class="nx">input</span><span class="w"> </span><span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="p">.</span><span class="kt">number</span><span class="o">=</span><span class="s2">"prefs.preferences.size"</span><span class="w"> </span><span class="kr">type</span><span class="o">=</span><span class="s2">"range"</span><span class="w"> </span><span class="nx">min</span><span class="o">=</span><span class="s2">"12"</span><span class="w"> </span><span class="nx">max</span><span class="o">=</span><span class="s2">"22"</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{{</span><span class="w"> </span><span class="nx">prefs</span><span class="p">.</span><span class="nx">preferences</span><span class="p">.</span><span class="nx">size</span><span class="w"> </span><span class="p">}}</span><span class="w"> </span><span class="nx">px</span><span class="o">&lt;</span><span class="err">/label&gt;</span>
+<a id="__codelineno-6-33" name="__codelineno-6-33"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">label</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"form-check-label"</span><span class="o">&gt;&lt;</span><span class="nx">input</span><span class="w"> </span><span class="nx">v</span><span class="o">-</span><span class="nx">model</span><span class="o">=</span><span class="s2">"areaVisible"</span><span class="w"> </span><span class="kr">type</span><span class="o">=</span><span class="s2">"checkbox"</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"form-check-input"</span><span class="o">&gt;</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">area</span><span class="o">&lt;</span><span class="err">/label&gt;</span>
+<a id="__codelineno-6-34" name="__codelineno-6-34"></a><span class="w">      </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-35" name="__codelineno-6-35"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="nx">v</span><span class="o">-</span><span class="k">if</span><span class="o">=</span><span class="s2">"areaVisible"</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"row g-3 text-body"</span><span class="o">&gt;</span>
+<a id="__codelineno-6-36" name="__codelineno-6-36"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"col-md-4"</span><span class="o">&gt;&lt;</span><span class="nx">Shop</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-37" name="__codelineno-6-37"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"col-md-4"</span><span class="o">&gt;&lt;</span><span class="nx">CartSummary</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-38" name="__codelineno-6-38"></a><span class="w">        </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"col-md-4"</span><span class="o">&gt;&lt;</span><span class="nx">LocalCounter</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-39" name="__codelineno-6-39"></a><span class="w">      </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-40" name="__codelineno-6-40"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">p</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"mt-3 mb-2"</span><span class="o">&gt;</span><span class="nx">Outside</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">area</span><span class="p">,</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">second</span><span class="w"> </span><span class="nx">summary</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">SAME</span><span class="w"> </span><span class="nx">cart</span><span class="w"> </span><span class="p">(</span><span class="nx">it</span><span class="w"> </span><span class="nx">stays</span><span class="w"> </span><span class="nx">there</span><span class="w"> </span><span class="nx">when</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">area</span><span class="w"> </span><span class="nx">disappears</span><span class="p">)</span><span class="o">:&lt;</span><span class="err">/p&gt;</span>
+<a id="__codelineno-6-41" name="__codelineno-6-41"></a><span class="w">      </span><span class="o">&lt;</span><span class="nx">div</span><span class="w"> </span><span class="kd">class</span><span class="o">=</span><span class="s2">"text-body"</span><span class="o">&gt;&lt;</span><span class="nx">CartSummary</span><span class="w"> </span><span class="o">/&gt;&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-42" name="__codelineno-6-42"></a><span class="w">    </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-43" name="__codelineno-6-43"></a><span class="w">  </span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<a id="__codelineno-6-44" name="__codelineno-6-44"></a><span class="o">&lt;</span><span class="err">/template&gt;</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li>Linha 35: desmarcar “mostrar a área” remove os três componentes da página;</li>
+<li>linha 41: um segundo resumo do mesmo carrinho de compras, fora da área.</li>
+</ul>
+<p>Mesma pergunta do Exemplo 23 do curso <em>[NestJS]</em> (escopos de aplicação, de requisição e de cliente), adaptada para o navegador:</p>
+<table class="odt-table" style="border-collapse: collapse; width: 100%; margin-bottom: 1em;"><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Dado</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Onde?</b></div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0"><b>Duração</b></div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">O contador de LocalCounter</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">o estado local do componente</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">desaparece junto com o componente</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">o carrinho de compras</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">uma store Pinia</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">toda a aplicação, até o F5</div></td></tr><tr><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">as preferências</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">uma store Pinia + localStorage</div></td><td style="border: 1px solid #ddd; padding: 8px; vertical-align: top; text-align: left;"><div style="margin:0 0 0.5em 0">sobrevive ao F5 e ao fechamento do navegador</div></td></tr></table>
+
+<p>Dois itens adicionados e dois cliques:</p>
+<p><img src="images/1000000000000384000002586F870486.png" width="491" height="328" style="width:13cm;height:8.668cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/1000000000000384000002586F870486.png" /></p>
+<p>A seção foi removida e o tema escuro foi selecionado: o carrinho de compras continua lá; se a seção for exibida novamente, o contador local volta a zero:</p>
+<p><img src="images/100000000000038400000258436E9C2F.png" width="491" height="328" style="width:13cm;height:8.668cm;" alt="Image" class="odt-zoomable" data-zoom-src="images/100000000000038400000258436E9C2F.png" /></p>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner">
+
+      <div>
+        <a href="https://stahe.github.io" target="_blank">
+          https://stahe.github.io
+        </a>
+        <br>
+        Este tutorial, escrito pela IA <strong>Claude</strong>, da Anthropic, a pedido de <strong>Serge Tahé</strong>, é disponibilizado ao público sob os termos da licença
+        <em>Creative Commons Atribuição – Uso Não Comercial –
+        Compartilha Igual 3.0 Não Adaptada</em>.
+
+      </div>
+
+    </div>
+  </div>
+
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.sections", "navigation.indexes", "navigation.expand", "toc.integrate", "navigation.top"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="javascripts/focus.js"></script>
+      
+    
+  </body>
+</html>
